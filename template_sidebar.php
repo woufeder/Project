@@ -6,7 +6,11 @@
         <!-- <h1>Site Name</h1> -->
         <p>後台管理系統</p>
     </div>
+<<<<<<< HEAD
     <nav id="side-nav" class="collapse collapse-horizontal show d-flex flex-column">
+=======
+    <nav id="side-nav" class="collapse collapse-horizontal show">
+>>>>>>> 6536a8947409c86dec7ef1c122306e59e3340bfc
 
         <!-- 會員管理 -->
         <div class="main-nav w-100 d-flex align-items-center justify-content-between">
@@ -58,6 +62,7 @@
             <a class="btn-subnav btn-sm w-100">新增文章</a>
             <a class="btn-subnav btn-sm w-100">已下架文章</a>
         </div>
+<<<<<<< HEAD
         <section class="setting w-100 mt-auto mb-3">
             <div class="main-nav d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-3">
@@ -68,4 +73,7 @@
         </section>
     </nav>
 
+=======
+    </nav>
+>>>>>>> 6536a8947409c86dec7ef1c122306e59e3340bfc
 </aside>
