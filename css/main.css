@@ -1,0 +1,290 @@
+:root {
+    --color-bg: #ffffff;
+    --color-surface: #F9F7F7;
+    --color-border: #DBE2EF;
+
+    --color-primary: #3F72AF;
+    --color-primary-light: #5B8BD6;
+
+    --color-accent: #E1B822;
+
+    --color-text: #2c2c2c;
+    --color-text-secondary: #64748b;
+    --color-text-inverse: #1e293b;
+
+    --box-shadow: rgba(63, 114, 175, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Noto Sans TC", sans-serif;
+    background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-border) 100%);
+    color: var(--font);
+    overflow: hidden;
+}
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* 側邊欄設計 */
+.sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-surface) 100%);
+    border-right: 1px solid rgba(219, 226, 239, 0.3);
+    border-top: 10px var(--color-primary) solid;
+    box-shadow: 4px 0 24px var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.sidebar-top {
+    margin: 5rem auto 2rem;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+.logo {
+    width: 100%;
+    background-color: var(--color-primary);
+    border-radius: 3px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0px 3px var(--box-shadow);
+    position: relative;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    color: var(--color-border);
+}
+
+
+.sidebar-top p {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    font-weight: 400;
+}
+
+#side-nav {
+    flex-grow: 1;
+    /* 撐滿 .sidebar 剩餘空間 */
+    display: flex;
+    flex-direction: column;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    color: var(--color-primary);
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+
+    & h6 {
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    & i {
+        width: 0.9rem;
+        /* font-size: 0.9rem; */
+    }
+}
+
+.main-nav:hover {
+    color: var(--color-primary-light);
+    transform: translateX(4px);
+    box-shadow: var(--box-shadow) 0px 4px 20px;
+}
+
+.nav-arrow {
+    margin-left: auto;
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-subnav {
+    display: flex;
+    padding: 0.25rem 1.75rem;
+    margin: 0.1rem 0;
+    color: var(--color-primary);
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    font-size: 0.8rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-subnav:hover {
+    color: var(--color-primary-light);
+    transform: translateX(4px);
+    box-shadow: var(--box-shadow) 0px 4px 20px;
+    border-left: 3px var(--color-primary) solid;
+}
+
+.main-container {
+    height: 100vh;
+    /* 整個畫面高度 */
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: calc(100vw - 250px);
+}
+
+header {
+    position: sticky;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background:
+        linear-gradient(135deg, rgba(63, 113, 175, 1) 0%, rgba(91, 139, 214, 0.5) 100%);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(219, 226, 239, 0.3);
+    z-index: 100;
+}
+
+.page-title {
+    h2 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: var(--color-bg);
+        margin-bottom: 4px;
+    }
+
+    h3 {
+        font-size: 28px;
+        font-weight: 600;
+        color: var(--color-text-inverse);
+        margin-bottom: 8px;
+    }
+}
+
+.breadcrumb {
+    color: var(--color-bg);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: var(--color-bg);
+}
+
+.breadcrumb-item.active {
+    color: var(--color-bg);
+}
+
+.info-count {
+    font-size: 0.9rem;
+}
+
+
+
+.adminphoto {
+    width: 40px;
+    height: 40px;
+
+    img {
+        width: 100%;
+        border-radius: 50%;
+        object-fit: contain;
+        /* border: 3px solid var(--color-primary); */
+        box-shadow: 0 3px 3px #1e293b;
+    }
+}
+
+.adminname {
+    margin-left: 10px;
+    color: var(--color-text-secondary);
+
+    /* background: var(--color-text-secondary); */
+    h6 {
+        font-size: 1rem;
+        color: var(--color-bg);
+        margin: 0;
+    }
+
+    p {
+        font-size: 0.8rem;
+        color: var(--color-bg);
+        margin: 0;
+    }
+}
+
+main {
+    padding: 2rem;
+    flex: 1;
+    overflow: auto;
+    max-height: calc(100vh - 100px);
+}
+
+
+
+
+/* 表單的樣式 */
+
+header.input-group-text {
+    background: transparent;
+    color: var(--color-text-inverse);
+}
+
+header .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
+    background-color: var(--color-primary-light);
+    color: var(--color-bg);
+    border: 1px dashed;
+}
+
+main .input-group-text {
+    background: var(--color-border);
+    color: var(--color-text-inverse);
+}
+
+main .form-select,
+main .form-control {
+    background-color: var(--color-surface);
+    color: var(--color-text-inverse);
+}
+
+
+main .form-control:focus,
+main .form-select:focus {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: var(--color-text-inverse);
+    outline: 0;
+    border: 0;
+    box-shadow: 0 0 0 .15rem rgba(63, 114, 175, 0.5);
+}
+
+
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
