@@ -1,4 +1,5 @@
 <?php
+include "./template_btn.php";
 include "./vars.php";
 $cateNum = -1;
 $pageTitle = "首頁";
@@ -23,18 +24,23 @@ $pageTitle = "首頁";
 
 <body>
     <div class="dashboard">
-
         <?php include './template_sidebar.php'; ?>
-
         <div class="main-container">
-
             <?php include './template_header.php'; ?>
             <main>
 
-                <!-- 大家的東西就都放這裡 -->
 
 
-            </main>
+
+
+            <!-- 大家的東西都放這裡，都放在main裡面-->
+
+
+
+
+
+
+        </main>
         </div>
     </div>
 

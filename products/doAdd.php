@@ -3,6 +3,10 @@
 require_once "./connect.php";
 require_once "./utilities.php";
 require_once "./uploadImgs.php";
+require_once "./connect.php";
+require_once "./utilities.php";
+include "../template_btn.php";
+include "../vars.php";
 
 
 if (!isset($_POST["name"]) || !isset($_POST["mainCateID"]) || !isset($_POST["subCateID"])) {

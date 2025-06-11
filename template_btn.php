@@ -40,7 +40,8 @@ $btnDel = '<i class="fas fa-trash"></i>';
 <a class="btn btn-sm btn-update" href="#">
 <?=$btnUpdate?>
 </a>
-(寫button或a都可以，套用bootstrap時，只要class有掛btn，就會有和btn一樣的效果，看個人喜歡)
+(寫button或a都可以，但button跳網址要寫JS，不能像a一樣掛href
+套用bootstrap時，只要class有掛btn，就會有和btn一樣的效果)
 
 刪除資料(垃圾桶圖示)=> .btn-del
 <button class="btn btn-sm btn-del">">

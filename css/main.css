@@ -95,7 +95,12 @@ body {
     position: relative;
     overflow: hidden;
 
+    i{
+        color: var(--color-primary-light);
+    }
+
     & h6 {
+        color: var(--color-primary-light);
         font-weight: 500;
         font-size: 0.9rem;
     }
@@ -106,11 +111,11 @@ body {
     }
 }
 
-.main-nav:hover {
+/* .main-nav:hover {
     color: var(--color-primary-light);
     transform: translateX(4px);
     box-shadow: var(--box-shadow) 0px 4px 20px;
-}
+} */
 
 .nav-arrow {
     margin-left: auto;
@@ -158,7 +163,7 @@ header {
     align-items: center;
     padding: 1rem 2rem;
     background:
-        linear-gradient(135deg, rgba(63, 113, 175, 1) 0%, rgba(91, 139, 214, 0.5) 100%);
+        linear-gradient(135deg, rgba(63, 113, 175, 1) 50%, rgba(91, 139, 214, 0.5) 100%);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(219, 226, 239, 0.3);
     z-index: 100;
@@ -181,21 +186,22 @@ header {
 }
 
 .breadcrumb {
-    color: var(--color-bg);
-    font-size: 0.9rem;
+    color: var(--color-border);
+    font-size: 0.8rem;
     margin: 0;
 }
 
 .breadcrumb-item+.breadcrumb-item::before {
-    color: var(--color-bg);
+    color: var(--color-border);
 }
 
 .breadcrumb-item.active {
-    color: var(--color-bg);
+    color: var(--color-border);
 }
 
 .info-count {
     font-size: 0.9rem;
+    color: var(--color-primary);
 }
 
 
@@ -241,41 +247,7 @@ main {
 
 
 
-/* 表單的樣式 */
 
-header.input-group-text {
-    background: transparent;
-    color: var(--color-text-inverse);
-}
-
-header .form-select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
-    background-color: var(--color-primary-light);
-    color: var(--color-bg);
-    border: 1px dashed;
-}
-
-main .input-group-text {
-    background: var(--color-border);
-    color: var(--color-text-inverse);
-}
-
-main .form-select,
-main .form-control {
-    background-color: var(--color-surface);
-    color: var(--color-text-inverse);
-}
-
-
-main .form-control:focus,
-main .form-select:focus {
-    color: var(--bs-body-color);
-    background-color: var(--bs-body-bg);
-    border-color: var(--color-text-inverse);
-    outline: 0;
-    border: 0;
-    box-shadow: 0 0 0 .15rem rgba(63, 114, 175, 0.5);
-}
 
 
 

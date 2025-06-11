@@ -1,7 +1,8 @@
 <?php
 require_once "./connect.php";
 require_once "./utilities.php";
-require_once "../vars.php";
+include "../template_btn.php";
+include "../vars.php";
 
 $sqlMain = "SELECT * FROM `category_main`";
 $sqlSub = "SELECT * FROM `category_sub`";
@@ -43,85 +44,115 @@ $pageTitle = "新增{$cate_ary[$cateNum]}";
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/products.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../products/css/add.css">
 </head>
 
 <body>
-  <div class="container px-3 mt-3">
-    <div class="d-flex align-items-center">
+
+  <div class="dashboard">
+
+    <?php include '../template_sidebar.php'; ?>
+
+    <div class="main-container overflow-auto">
+
+      <?php include '../template_header.php'; ?>
+      <main>
+
+        <div class="d-flex align-items-center mb-4 px-2">
+          <a class="btn btn-back ms-auto px-3" href="../products/index.php">
+            <i class="fa-solid fa-backward"> 回到商品列表</i>
+          </a>
+        </div>
+
+        <div class="list-area  p-5">
+          <!-- <div class="d-flex align-items-center">
       <h1><?= $pageTitle ?></h1>
       <a class="btn btn-add ms-auto " href="./add.php">建立類別</a>
-    </div>
-    <form action="./doAdd.php" method="post" enctype="multipart/form-data">
-      <!-- <div class="input-group mb-2">
+    </div> -->
+
+          <form action="./doAdd.php" method="post" enctype="multipart/form-data">
+            <!-- <div class="input-group mb-2">
         <span class="input-group-text">品牌名稱</span>
         <input name="brand" type="text" class="form-control" placeholder="品牌名稱">
       </div> -->
 
-      <div class="d-flex gap-2">
-        <div class="input-group mb-2">
-          <span class="input-group-text">主分類名稱</span>
-          <select class="form-select" name="mainCateID">
-            <option value selected disabled>請選擇</option>
-            <?php foreach ($rowsMain as $rowMain): ?>
-              <option value="<?= $rowMain["id"] ?>"><?= $rowMain["name"] ?></option>
-            <?php endforeach ?>
-          </select>
-        </div>
-        <div class="input-group mb-2">
-          <span class="input-group-text">次分類名稱</span>
-          <select class="form-select" name="subCateID">
-            <option value selected disabled>請選擇</option>
-          </select>
-        </div>
-        <div class="input-group mt-1 mb-2">
-          <span class="input-group-text">品牌名稱</span>
-          <select name="brand" class="form-select">
-            <option value selected disabled>請選擇</option>
-            <?php foreach ($rowsBrand as $rowBrand): ?>
-              <option value="<?= $rowBrand["id"] ?>"><?= $rowBrand["name"] ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-      </div>
+            <div class="d-flex gap-2 mb-2">
+              <div class="input-group">
+                <span class="input-group-text">主分類名稱</span>
+                <select class="form-select" name="mainCateID">
+                  <option value selected disabled>請選擇</option>
+                  <?php foreach ($rowsMain as $rowMain): ?>
+                    <option value="<?= $rowMain["id"] ?>"><?= $rowMain["name"] ?></option>
+                  <?php endforeach ?>
+                </select>
+              </div>
+              <div class="input-group">
+                <span class="input-group-text">次分類名稱</span>
+                <select class="form-select" name="subCateID">
+                  <option value selected disabled>請選擇</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <span class="input-group-text">品牌名稱</span>
+                <select name="brand" class="form-select">
+                  <option value selected disabled>請選擇</option>
+                  <?php foreach ($rowsBrand as $rowBrand): ?>
+                    <option value="<?= $rowBrand["id"] ?>"><?= $rowBrand["name"] ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+            </div>
 
-      <div class="input-group mb-2">
-        <span class="input-group-text">商品名稱</span>
-        <input name="name" type="text" class="form-control" placeholder="商品名稱">
-      </div>
-      <div class="input-group mb-2">
-        <!-- 後續要是可以自己寫一張吧 -->
-        <span class="input-group-text">上傳圖片</span>
-        <input name="productImg[]" multiple type="file" class="form-control">
-      </div>
-      <div class="d-flex gap-2">
-        <div class="input-group mb-2">
-          <span class="input-group-text">商品型號</span>
-          <input name="modal" type="text" class="form-control" placeholder="價格">
+            <div class="input-group mb-2">
+              <span class="input-group-text">商品名稱</span>
+              <input name="name" type="text" class="form-control" placeholder="商品名稱">
+            </div>
+            <div class="input-group mb-2">
+              <!-- 後續要是可以自己寫一張吧 -->
+              <span class="input-group-text">上傳圖片</span>
+              <input name="productImg[]" multiple type="file" class="form-control">
+            </div>
+            <div class="d-flex gap-2">
+              <div class="input-group mb-2">
+                <span class="input-group-text">商品型號</span>
+                <input name="modal" type="text" class="form-control" placeholder="價格">
+              </div>
+              <div class="input-group mb-2">
+                <span class="input-group-text">價格</span>
+                <input name="price" type="text" class="form-control" placeholder="價格">
+              </div>
+            </div>
+            <div class="input-group mb-2">
+              <span class="intro input-group-text">商品介紹</span>
+              <textarea name="intro" class="form-control" aria-label="With textarea"></textarea>
+            </div>
+            <div class="input-group mb-2">
+              <span class="spec input-group-text">商品規格</span>
+              <textarea name="spec" class="form-control" aria-label="With textarea"></textarea>
+            </div>
+            <div class="input-group mb-2">
+              <span class="input-group-text">上傳商品介紹圖片</span>
+              <input name="introImg[]" multiple type="file" class="form-control">
+            </div>
+            <div class="mt-3 text-end">
+              <button type="submit" class="btn btn-send">送出</button>
+              <a class="btn btn-cancel" href="./index.php">取消</a>
+            </div>
+          </form>
+
         </div>
-        <div class="input-group mb-2">
-          <span class="input-group-text">價格</span>
-          <input name="price" type="text" class="form-control" placeholder="價格">
-        </div>
-      </div>
-      <div class="input-group mb-2">
-        <span class="input-group-text">商品介紹</span>
-        <textarea name="intro" class="form-control" aria-label="With textarea"></textarea>
-      </div>
-      <div class="input-group mb-2">
-        <span class="input-group-text">商品規格</span>
-        <textarea name="spec" class="form-control" aria-label="With textarea"></textarea>
-      </div>
-      <div class="input-group mb-2">
-        <span class="input-group-text">上傳商品介紹圖片</span>
-        <input name="introImg[]" multiple type="file" class="form-control">
-      </div>
-      <div class="mt-3 text-end">
-        <button type="submit" class="btn btn-send">送出</button>
-        <a class="btn btn-cancel" href="./index.php">取消</a>
-      </div>
-    </form>
+
+
+
+
+      </main>
+    </div>
   </div>
+
+
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
     crossorigin="anonymous"></script>

@@ -16,9 +16,9 @@ try {
   $stmt->execute([$id]);
 } catch (PDOException $e) {
   echo "Error: {$e->getMessage()}<br>";
-  alertGoTo("重新上架商品失敗", "./index.php");
+  alertGoTo("重新上架商品失敗", "./deleted.php");
   exit;
 }
 
-alertGoTo("重新上架商品成功", "./index.php");
+alertGoTo("重新上架商品成功", "./deleted.php");
 ?>

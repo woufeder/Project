@@ -1,6 +1,6 @@
 use my_project
 
-CREATE TABLE products (
+CREATE TABLE msgs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     category_main_id INT NOT NULL,
     category_sub_id INT NOT NULL,

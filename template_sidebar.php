@@ -6,11 +6,7 @@
         <!-- <h1>Site Name</h1> -->
         <p>後台管理系統</p>
     </div>
-<<<<<<< HEAD
     <nav id="side-nav" class="collapse collapse-horizontal show d-flex flex-column">
-=======
-    <nav id="side-nav" class="collapse collapse-horizontal show">
->>>>>>> 6536a8947409c86dec7ef1c122306e59e3340bfc
 
         <!-- 會員管理 -->
         <div class="main-nav w-100 d-flex align-items-center justify-content-between">
@@ -21,7 +17,7 @@
         </div>
         <div class="btn-group-vertical w-100">
             <a class="btn-subnav btn-sm w-100">會員列表</a>
-            <a class="btn-subnav btn-sm w-100">凍結帳號</a>
+            <a class="btn-subnav btn-sm w-100">停權會員列表</a>
         </div>
 
         <!-- 商品管理 -->
@@ -32,9 +28,9 @@
             </div>
         </div>
         <div class="btn-group-vertical w-100">
-            <a class="btn-subnav btn-sm w-100" href="./products/index.php">商品列表</a>
-            <a class="btn-subnav btn-sm w-100" href="./products/add.php">新增商品</a>
-            <a class="btn-subnav btn-sm w-100" href="./products/deleted.php">已下架商品</a>
+            <a class="btn-subnav btn-sm w-100" href="../products/index.php">商品列表</a>
+            <a class="btn-subnav btn-sm w-100" href="../products/add.php">新增商品</a>
+            <a class="btn-subnav btn-sm w-100" href="../products/deleted.php">已下架商品</a>
         </div>
 
         <!-- 優惠券管理 -->
@@ -62,7 +58,6 @@
             <a class="btn-subnav btn-sm w-100">新增文章</a>
             <a class="btn-subnav btn-sm w-100">已下架文章</a>
         </div>
-<<<<<<< HEAD
         <section class="setting w-100 mt-auto mb-3">
             <div class="main-nav d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-3">
@@ -73,7 +68,4 @@
         </section>
     </nav>
 
-=======
-    </nav>
->>>>>>> 6536a8947409c86dec7ef1c122306e59e3340bfc
 </aside>
