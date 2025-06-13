@@ -1,0 +1,79 @@
+body { background: #f6f7fb; }
+.modern-title {
+    background: linear-gradient(90deg, #4f8cff 0%, #6ed0f6 100%);
+    color: #fff;
+    border-radius: 1rem;
+    padding: 2rem 2rem 1.2rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 24px 0 rgba(79,140,255,0.10);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.modern-title i {
+    font-size: 2.5rem;
+    opacity: 0.9;
+}
+.modern-title h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 2px;
+}
+.modern-card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.06);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.modern-table {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.07);
+}
+.modern-table th {
+    background: #f0f6ff;
+    color: #3a3a3a;
+    font-weight: 600;
+}
+.modern-table tbody tr {
+    transition: background 0.2s;
+    height: 64px;
+}
+.modern-table tbody tr:hover {
+    background: #eaf3ff;
+}
+.modern-table td, .modern-table th {
+    vertical-align: middle;
+    font-size: 1.1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.btn-update {
+    background-color: var(--color-accent);
+    color: var(--color-bg) !important;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+}
+.btn-update:hover {
+    opacity: 0.5;
+    color: var(--color-primary);
+}
+.btn-del {
+    background-color: var(--color-text-inverse);
+    color: var(--color-accent);
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+}
+.btn-del:hover {
+    opacity: 0.5;
+    color: var(--color-primary);
+}
+.btn-add, .btn-info, .btn-secondary {
+    border-radius: 0.5rem !important;
+}
+@media (max-width: 768px) {
+    .modern-title { flex-direction: column; align-items: flex-start; padding: 1.2rem; }
+    .modern-card { padding: 1rem; }
+} 
