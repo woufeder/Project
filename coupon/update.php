@@ -73,13 +73,34 @@ try {
       border-color: #5d89c2;
     }
 
-    img {
+
+    .btn-type {
+      border: 2px solid #3F72AF;
+      background-color: white;
+      color: #3F72AF;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .btn-type:hover {
+      background-color: rgb(63, 113, 175);
+      color: white;
+    }
+
+    .btn-type.active {
+      background-color: #3F72AF;
+      color: white;
+    }
+
+    /* img {
       width: 100%;
       max-width: 400px;
       aspect-ratio: 4/3;
       object-fit: contain;
       display: none;
-    }
+    } */
   </style>
 </head>
 
@@ -92,7 +113,7 @@ try {
         <div class="container mt-5" style="max-width: 600px;">
           <h1 class="text-center">編輯優惠券</h1>
           <div class="card p-4">
-            <form action="./doUpdate.php" method="post">
+            <form id="couponForm" action="./doUpdate.php" method="post" enctype="multipart/form-data">
               <input type="hidden" name="id" value="<?= $row["id"] ?>">
 
               <div class="mb-3">
@@ -106,12 +127,12 @@ try {
               </div>
 
               <div class="mb-3">
-                <label class="form-label">類型</label>
-                <select name="type" class="form-select" required>
-                  <option value="">請選擇</option>
-                  <option value="1" <?= $row["type"] == "1" ? "selected" : "" ?>>百分比</option>
-                  <option value="2" <?= $row["type"] == "2" ? "selected" : "" ?>>固定金額</option>
-                </select>
+                <label class="form-label d-block">類型</label>
+                <div class="type-buttons d-flex gap-3">
+                  <button type="button" class="btn-type" data-value="1">百分比折扣</button>
+                  <button type="button" class="btn-type" data-value="0">固定金額折扣</button>
+                </div>
+                <input type="hidden" name="type" id="type">
               </div>
 
               <div class="mb-3">
@@ -146,6 +167,40 @@ try {
       </main>
     </div>
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const buttons = document.querySelectorAll('[data-value]');
+      const hiddenInput = document.getElementById('type');
+      const form = document.getElementById('couponForm');
+
+      const currentType = "<?= $row['type'] ?>"; // 從 PHP 帶入目前資料庫的 type
+
+      // 預設選中當前類型按鈕
+      buttons.forEach(btn => {
+        if (btn.dataset.value === currentType) {
+          hiddenInput.value = currentType;
+          btn.classList.add("active");
+        }
+
+        // 點擊切換
+        btn.addEventListener("click", () => {
+          hiddenInput.value = btn.dataset.value;
+          buttons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+        });
+      });
+
+      // 表單送出時檢查是否有選擇類型
+      form.addEventListener('submit', (e) => {
+        if (hiddenInput.value === "") {
+          e.preventDefault();
+          alert("請選擇類型！");
+        }
+      });
+    });
+
+  </script>
+
 </body>
 
 </html>

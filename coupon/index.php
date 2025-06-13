@@ -152,12 +152,21 @@ $totalPage = ceil($totalCount / $perPage);
         }
 
         .btn-del {
-            background: #fff;
+            background: rgb(255, 208, 78);
+            color:rgb(171, 102, 22);
+        }
+
+        .btn-del:hover {
+            background:rgb(255, 120, 29);
+            color: #fff;
+        }
+
+        .btn-cha {
+            background:rgb(154, 200, 255);
             color: #3F72AF;
         }
 
-        .btn-cha,
-        .btn-del:hover {
+        .btn-cha:hover {
             background: #3F72AF;
             color: #fff;
         }
@@ -210,10 +219,9 @@ $totalPage = ceil($totalCount / $perPage);
     <div class="dashboard">
         <?php include(__DIR__ . "/../template_sidebar.php"); ?>
         <div class="main-container">
-            <?php include(__DIR__ . "/../template_header.php");?>
+            <?php include(__DIR__ . "/../template_header.php"); ?>
             <main>
                 <div class="container my-4">
-                    <h1 class="mb-4 coupon-list text-align:center">優惠券列表</h1>
                     <div class="my-2 d-flex">
                         <span class="me-auto">目前共 <?= $totalCount ?> 筆資料</span>
                         <a class="btn btn-add btn-sm" href="./add.php">新增優惠券</a>
@@ -296,40 +304,43 @@ $totalPage = ceil($totalCount / $perPage);
                     </div>
                 </div>
                 <!-- 分頁 -->
-<?php
-$visiblePages = 5;
-$half = floor($visiblePages / 2);
+                <?php
+                $visiblePages = 5;
+                $half = floor($visiblePages / 2);
 
-$startPage = max(1, $page - $half);
-$endPage = min($totalPage, $startPage + $visiblePages - 1);
+                $startPage = max(1, $page - $half);
+                $endPage = min($totalPage, $startPage + $visiblePages - 1);
 
-if ($endPage - $startPage + 1 < $visiblePages) {
-    $startPage = max(1, $endPage - $visiblePages + 1);
-}
-?>
+                if ($endPage - $startPage + 1 < $visiblePages) {
+                    $startPage = max(1, $endPage - $visiblePages + 1);
+                }
+                ?>
 
-  <nav>
-    <ul class="pagination pagination-sm justify-content-center">
+                <nav>
+                    <ul class="pagination pagination-sm justify-content-center">
 
-      <!-- 上一頁箭頭 -->
-      <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-        <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>">&laquo;</a>
-      </li>
+                        <!-- 上一頁箭頭 -->
+                        <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+                            <a class="page-link"
+                                href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>">&laquo;</a>
+                        </li>
 
-      <!-- 頁碼按鈕 -->
-      <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
-        <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-          <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>"><?= $i ?></a>
-        </li>
-      <?php endfor; ?>
+                        <!-- 頁碼按鈕 -->
+                        <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                            <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                                <a class="page-link"
+                                    href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>"><?= $i ?></a>
+                            </li>
+                        <?php endfor; ?>
 
-      <!-- 下一頁箭頭 -->
-      <li class="page-item <?= $page >= $totalPage ? 'disabled' : '' ?>">
-        <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>">&raquo;</a>
-      </li>
+                        <!-- 下一頁箭頭 -->
+                        <li class="page-item <?= $page >= $totalPage ? 'disabled' : '' ?>">
+                            <a class="page-link"
+                                href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>">&raquo;</a>
+                        </li>
 
-    </ul>
-  </nav>
+                    </ul>
+                </nav>
 
             </main>
         </div>

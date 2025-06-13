@@ -3,7 +3,7 @@ include "../template_btn.php";
 include "../vars.php";
 require_once "./connect.php";
 $cateNum = 2;
-$pageTitle = "{$cate_ary[$cateNum]}列表";
+$pageTitle = "失效優惠券列表";
 
 // 查詢參數
 $search = $_GET["search"] ?? "";
@@ -21,7 +21,7 @@ if (!in_array($orderBy, $allowedOrderFields))
 if (!in_array($orderDir, ["ASC", "DESC"]))
     $orderDir = "DESC";
 
-$where = ["coupon.is_valid = 1"];
+$where = ["coupon.is_valid = 0"];
 $values = [];
 $allowedSearchTypes = ["code", "desc", "value", "min"];
 if ($search !== "" && in_array($searchType, $allowedSearchTypes)) {
@@ -108,7 +108,7 @@ function sortIcon($field, $orderBy, $orderDir)
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PC 周邊商品後台管理系統|<?= $pageTitle ?></title>
+    <title>PC 周邊商品後台管理系統|失效優惠券列表</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"

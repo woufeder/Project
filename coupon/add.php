@@ -54,12 +54,32 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
             border-color: #5d89c2;
         }
 
-        img {
+        .btn-type {
+            border: 2px solid #3F72AF;
+            background-color: white;
+            color: #3F72AF;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .btn-type:hover {
+            background-color: rgb(63, 113, 175);
+            color: white;
+        }
+
+        .btn-type.active {
+            background-color: #3F72AF;
+            color: white;
+        }
+
+        /* img {
             width: 400px;
             aspect-ratio: 4/3;
             object-fit: contain;
             object-position: 0 0;
-        }
+        } */
     </style>
 </head>
 
@@ -84,12 +104,12 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                             </div>
 
                             <div class="mb-3">
-                                <label for="type" class="form-label">類型</label>
-                                <select required name="type" id="type" class="form-select">
-                                    <option value="" disabled selected>請選擇</option>
-                                    <option value="1">百分比折扣</option>
-                                    <option value="2">固定金額折扣</option>
-                                </select>
+                                <label class="form-label d-block">類型</label>
+                                <div class="type-buttons d-flex gap-3">
+                                    <button type="button" class="btn-type" data-value="1">百分比折扣</button>
+                                    <button type="button" class="btn-type" data-value="0">固定金額折扣</button>
+                                </div>
+                                <input type="hidden" name="type" id="type">
                             </div>
 
                             <div class="mb-3">
@@ -122,8 +142,30 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
             </main>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const buttons = document.querySelectorAll('[data-value]');
+            const hiddenInput = document.getElementById('type');
+            const form = document.getElementById('couponForm');
 
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    hiddenInput.value = btn.dataset.value;
+                    buttons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+
+            // 表單送出驗證 hidden input
+            form.addEventListener('submit', (e) => {
+                if (hiddenInput.value === "") {
+                    e.preventDefault();
+                    alert("請選擇類型！");
+                }
+            });
+        });
     </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"

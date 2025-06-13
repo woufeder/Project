@@ -3,6 +3,8 @@ function formatDiscount($type, $value)
 {
   return $type == 1 ? $value . "% OFF" : "折 $" . $value . " 元";
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +13,7 @@ function formatDiscount($type, $value)
 <head>
   <meta charset="UTF-8" />
   <title>優惠券底圖</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     * {
       box-sizing: border-box;
@@ -208,8 +211,13 @@ function formatDiscount($type, $value)
         </div>
         <div class="coupon-center">
           <div class="actions">
-            <a href="./update.php?id=<?= $row["id"] ?>" class="btn btn-sm btn-cha">修改</a>
-            <a href="./doDelete.php?id=<?= $row["id"] ?>" class="btn btn-sm btn-del">刪除</a>
+            <a href="./update.php?id=<?= $row["id"] ?>" class="btn btn-sm btn-cha" title="修改">
+              <i class="fas fa-pen"></i>
+            </a>
+            <a href="./doDelete.php?id=<?= $row["id"] ?>" class="btn btn-sm btn-del" title="刪除"
+              onclick="return confirm('確定要刪除這筆資料嗎？');">
+              <i class="fas fa-trash-alt"></i>
+            </a>
           </div>
         </div>
       </div>
