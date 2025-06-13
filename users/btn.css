@@ -1,0 +1,80 @@
+/* 深藍 */
+.btn-b {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+}
+.btn-b:hover {
+  background-color: #335c8e;
+  color: white;
+}
+.btn-b:active {
+  background-color: #335c8e !important;
+  color: white !important;
+}
+
+.btn-outline-b {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+.btn-outline-b:hover {
+  background-color: transparent;
+  color: #335c8e;
+  border: 1px solid #335c8e;
+}
+.btn-outline-b:active {
+  background-color: transparent !important;
+  color: #335c8e !important;
+  border: 1px solid #335c8e !important;
+}  
+
+/* 黃色 */
+.btn-y {
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
+  border: none;
+}
+.btn-y:hover {
+  background-color: #cfac2e;
+  color: var(--color-text);
+}
+.btn-y:active {
+  background-color: #cfac2e !important;
+  color: var(--color-text) !important;
+}
+
+/* 深色 */
+.btn-d {
+  background-color: var(--color-text-inverse);
+  color: var(--color-accent);
+  border: none;
+}
+.btn-d:hover {
+  background-color: var(--color-text-inverse);
+  color: #bf9f2b;
+}
+.btn-d:active {
+  background-color: var(--color-text-inverse) !important;
+  color: #bf9f2b !important;
+}
+
+/* 分頁按鈕 */
+.pagination .page-link {
+  color: var(--color-primary);
+  background-color: white;
+}
+.pagination .page-link:hover {
+  color: var(--color-primary);
+  background-color: #f8f9fa;
+}
+.pagination .page-item.active .page-link {
+  color: white !important;
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #ccc;
+  background-color: #f8f9fa;
+}

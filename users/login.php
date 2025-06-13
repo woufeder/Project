@@ -71,7 +71,7 @@
             <div class="border-bottom border-white text-center my-4"></div>
             <div class="text-center">
                 <button class="btn btn-primary btn-send me-3">登入</button>
-                <a class="btn btn-warning btn-send">註冊</a>
+                <a class="btn btn-warning btn-send" href="./add.php">註冊</a>
             </div>
         </form>
     </div>

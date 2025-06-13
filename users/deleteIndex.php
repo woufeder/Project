@@ -1,17 +1,7 @@
 <?php
-// 待新增項目： 強制沒有登入者轉跳至登入頁
-// session_start();
-// if(!isset($_SESSION["user"])){
-//   header("location: /users/login.php");
-// }
-
-// 分頁新增[首頁 < > 末頁]，單次顯示5頁
-
-// 新增搜尋功能
-
 // 圖片聚焦問題，如果沒有上傳圖片show 灰色圓塊
 
-//製作 modal
+//更新程式碼
 
 require_once "./connect.php";
 require_once "./utilities.php";
