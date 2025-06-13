@@ -1,0 +1,157 @@
+/* categories_custom.css */
+
+/* 標題區塊統一 index 主視覺 */
+.modern-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  color: #fff;
+  border-radius: 1rem;
+  padding: 2rem 2rem 1.2rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 24px 0 var(--box-shadow);
+}
+.modern-title i {
+  font-size: 2.2rem;
+  color: #fff;
+  opacity: 0.9;
+  background: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+}
+.modern-title h1 {
+  color: #fff;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 0;
+  letter-spacing: 2px;
+}
+
+/* 卡片區塊 */
+.modern-card {
+  background: var(--color-bg);
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px 0 var(--box-shadow);
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 表格統一 index 主視覺 */
+.modern-table {
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 2px 16px 0 var(--box-shadow);
+}
+.modern-table th {
+  background: #f0f6ff;
+  color: #3a3a3a;
+  font-weight: 600;
+  border: none;
+}
+.modern-table td, .modern-table th {
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 1.05rem;
+}
+.modern-table td input.form-control {
+  min-width: 160px;
+  margin-right: 8px;
+}
+.modern-table tr {
+  height: 56px;
+}
+.modern-table .btn {
+  min-width: 70px;
+  font-size: 0.98rem;
+  padding: 0.35rem 0.9rem;
+}
+.modern-table tbody tr {
+  transition: background 0.2s;
+}
+.modern-table tbody tr:hover {
+  background: #eaf3ff;
+}
+
+/* 輸入框統一 index 主視覺 */
+input.form-control {
+  background-color: var(--color-border);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+input.form-control:focus {
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border-color: var(--color-text-inverse);
+  outline: 0;
+  border: 0;
+  box-shadow: 0 0 0 .15rem rgba(63, 114, 175, 0.8);
+}
+
+/* 按鈕統一 index 主視覺 */
+.btn-add {
+  color: var(--color-border);
+  border: 2px solid var(--color-primary);
+  background-color: var(--color-primary);
+  border-radius: 0.5rem !important;
+  transition: all 0.2s;
+}
+.btn-add:hover {
+  background-color: var(--color-accent);
+  opacity: 0.8 !important;
+  border: 2px solid var(--color-bg);
+  color: var(--color-bg) !important;
+}
+.btn-update {
+  background-color: var(--color-accent);
+  color: var(--color-bg) !important;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+.btn-update:hover {
+  opacity: 0.5;
+  color: var(--color-primary);
+}
+.btn-del {
+  background-color: var(--color-text-inverse);
+  color: var(--color-accent);
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+.btn-del:hover {
+  opacity: 0.5;
+  color: var(--color-primary);
+}
+.btn-secondary {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary) !important;
+  border-radius: 0.5rem !important;
+  transition: all 0.2s;
+}
+.btn-secondary:hover {
+  background-color: var(--color-accent);
+  color: var(--color-bg) !important;
+  border: 1px solid var(--color-accent);
+}
+
+/* 目前共幾筆分類 */
+.fw-bold.text-primary {
+  font-size: 1.1rem;
+  background: #e0e7ff;
+  padding: 4px 14px;
+  border-radius: 6px;
+  color: var(--color-primary) !important;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+  .modern-title { flex-direction: column; align-items: flex-start; padding: 1.2rem; }
+  .modern-card { padding: 1rem; }
+  .modern-table .table { font-size: 0.95rem; }
+} 
