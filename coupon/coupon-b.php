@@ -19,7 +19,7 @@ function formatDiscount($type, $value)
       font-family: 'Poppins', sans-serif;
     }
 
-    body {
+    /* body {
       background: #DBE2EF;
       min-height: 100vh;
       padding: 30px;
@@ -27,7 +27,7 @@ function formatDiscount($type, $value)
       flex-direction: column;
       gap: 20px;
       align-items: center;
-    }
+    } */
 
     .coupon {
       width: 320px;
@@ -44,12 +44,13 @@ function formatDiscount($type, $value)
       position: absolute;
       width: 30px;
       height: 30px;
-      background: #DBE2EF;
+      background: #f1f3f8;
       border-radius: 50%;
       z-index: 10;
       top: 50%;
       transform: translateY(-50%);
       clip-path: circle(50% at center);
+      border: 2px solid #dce3ec;
     }
 
     .coupon::before {
@@ -100,7 +101,7 @@ function formatDiscount($type, $value)
     }
 
     .badge {
-      background-color: rgb(104, 155, 219);
+      background-color: #689bdb;
       color: #fff;
       border-radius: 999px;
       padding: 4px 10px;

@@ -69,9 +69,10 @@ if (isset($_GET["toggle_id"])) {
 }
 
 // 分頁
-$perPage = 12;
+$perPage = 6;
 $page = intval($_GET["page"] ?? 1);
 $pageStart = ($page - 1) * $perPage;
+
 
 // 動態設定排序方向文字
 $ascLabel = "從小到大";
@@ -118,6 +119,7 @@ try {
 }
 
 $totalPage = ceil($totalCount / $perPage);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -143,9 +145,10 @@ $totalPage = ceil($totalCount / $perPage);
 
         .coupon-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 16px;
             padding: 20px;
+            overflow-y: auto;
         }
 
         .btn-del {
@@ -205,9 +208,9 @@ $totalPage = ceil($totalCount / $perPage);
 
 <body>
     <div class="dashboard">
-        <?php include '../template_sidebar.php'; ?>
+        <?php include(__DIR__ . "/../template_sidebar.php"); ?>
         <div class="main-container">
-            <?php include '../template_header.php'; ?>
+            <?php include(__DIR__ . "/../template_header.php");?>
             <main>
                 <div class="container my-4">
                     <h1 class="mb-4 coupon-list text-align:center">優惠券列表</h1>
@@ -293,17 +296,41 @@ $totalPage = ceil($totalCount / $perPage);
                     </div>
                 </div>
                 <!-- 分頁 -->
-                <nav>
-                    <ul class="pagination pagination-sm justify-content-center">
-                        <?php for ($i = 1; $i <= $totalPage; $i++): ?>
-                            <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                                <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>">
-                                    <?= $i ?>
-                                </a>
-                            </li>
-                        <?php endfor; ?>
-                    </ul>
-                </nav>
+<?php
+$visiblePages = 5;
+$half = floor($visiblePages / 2);
+
+$startPage = max(1, $page - $half);
+$endPage = min($totalPage, $startPage + $visiblePages - 1);
+
+if ($endPage - $startPage + 1 < $visiblePages) {
+    $startPage = max(1, $endPage - $visiblePages + 1);
+}
+?>
+
+  <nav>
+    <ul class="pagination pagination-sm justify-content-center">
+
+      <!-- 上一頁箭頭 -->
+      <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+        <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>">&laquo;</a>
+      </li>
+
+      <!-- 頁碼按鈕 -->
+      <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+        <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+          <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>"><?= $i ?></a>
+        </li>
+      <?php endfor; ?>
+
+      <!-- 下一頁箭頭 -->
+      <li class="page-item <?= $page >= $totalPage ? 'disabled' : '' ?>">
+        <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>">&raquo;</a>
+      </li>
+
+    </ul>
+  </nav>
+
             </main>
         </div>
 
