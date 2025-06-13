@@ -16,8 +16,8 @@
             </div>
         </div>
         <div class="btn-group-vertical w-100">
-            <a class="btn-subnav btn-sm w-100">會員列表</a>
-            <a class="btn-subnav btn-sm w-100">停權會員列表</a>
+            <a class="btn-subnav btn-sm w-100" href="../users/index.php">會員列表</a>
+            <a class="btn-subnav btn-sm w-100" href="../users/deleteIndex.php">停權會員列表</a>
         </div>
 
         <!-- 商品管理 -->
@@ -60,10 +60,12 @@
         </div>
         <section class="setting w-100 mt-auto mb-3">
             <div class="main-nav d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center gap-3">
-                    <i class="fa-solid fa-power-off"></i>
-                    <h6 class="mb-0">系統登出</h6>
-                </div>
+                <a href="../users/doLogout.php">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fa-solid fa-power-off"></i>
+                        <h6 class="mb-0">系統登出</h6>
+                    </div>
+                </a>
             </div>
         </section>
     </nav>
