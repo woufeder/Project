@@ -327,8 +327,8 @@ $totalPage = ceil($totalCount / $perPage);
 				</div>
 
 
-		</main>
-	</div>
+			</main>
+		</div>
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
@@ -348,7 +348,7 @@ $totalPage = ceil($totalCount / $perPage);
 		});
 
 		function doConfirm(e) {
-			const btn = e.target;
+			const btn = e.currentTarget; // ✅ 改這裡
 			//通常window可省略
 			if (window.confirm("確定要重新上架商品嗎？")) {
 				window.location.href = `./doUndo.php?id=${btn.dataset.id}`

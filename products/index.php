@@ -165,7 +165,7 @@ $totalPage = ceil($totalCount / $perPage);
 				<div class="">
 					<div class="">
 						<div class="d-flex align-items-center mb-4 px-2">
-							<div class="index-slecter d-flex gap-2">
+							<div class="index-selecter d-flex gap-2">
 								<div class="input-group input-group-sm ">
 									<span class="input-group-text">母分類</span>
 									<select class="form-select" name="mainCateID">
@@ -358,7 +358,7 @@ $totalPage = ceil($totalCount / $perPage);
 		});
 
 		function doConfirm(e) {
-			const btn = e.target;
+			const btn = e.currentTarget; // ✅ 改這裡
 			//通常window可省略
 			if (window.confirm("確定要下架商品嗎？")) {
 				window.location.href = `./doDelete.php?id=${btn.dataset.id}`

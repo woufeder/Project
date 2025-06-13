@@ -12,6 +12,8 @@ $sqlBrand = "SELECT * FROM `brands`";
 $sqlImg = "SELECT * FROM products_imgs WHERE product_id = ?";
 $sqlIntroImg = "SELECT * FROM products_intro_imgs WHERE product_id = ?";
 
+
+
 try {
   $stmt = $pdo->prepare($sql);
   $stmt->execute([$id]);
@@ -65,8 +67,9 @@ $pageTitle = "修改{$cate_ary[$cateNum]}";
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../products/css/add_up.css">
+  <link rel="stylesheet" href="../products/css/index.css">
 </head>
 
 <body>
@@ -80,23 +83,21 @@ $pageTitle = "修改{$cate_ary[$cateNum]}";
       <?php include '../template_header.php'; ?>
       <main>
 
+
         <div class="d-flex align-items-center mb-4 px-2">
-          <a class="btn btn-back " href="../products/index.php">
+          <a class="btn btn-back ms-auto px-3" href="../products/index.php">
             <i class="fa-solid fa-backward"> 回到商品列表</i>
-          </a>
-          <a class="btn btn-sm btn-del ms-auto px-3" data-id="<?= $row["id"] ?>">
-            <i class="fas fa-trash"> 刪除商品</i>
           </a>
         </div>
 
         <div class="list-area  p-5">
-
           <form action="./doUpdate.php" method="post" enctype="multipart/form-data">
+
+
             <input hidden type="text" name="id" value="<?= $row["id"] ?>">
 
-            <!-- 上面三條 -->
             <div class="d-flex gap-2 mb-2">
-              <div class="input-group">
+              <div class="input-group ">
                 <span class="input-group-text">主分類名稱</span>
                 <select class="form-select" name="mainCateID">
                   <?php foreach ($rowsMain as $rowMain): ?>
@@ -106,7 +107,7 @@ $pageTitle = "修改{$cate_ary[$cateNum]}";
                   <?php endforeach; ?>
                 </select>
               </div>
-              <div class="input-group">
+              <div class="input-group ">
                 <span class="input-group-text">次分類名稱</span>
                 <select class="form-select" name="subCateID">
                   <?php foreach ($rowsSub as $rowSub): ?>
@@ -116,7 +117,7 @@ $pageTitle = "修改{$cate_ary[$cateNum]}";
                   <?php endforeach; ?>
                 </select>
               </div>
-              <div class="input-group">
+              <div class="input-group mt-1">
                 <span class="input-group-text">品牌名稱</span>
                 <select name="brandID" class="form-select">
                   <option value selected disabled>請選擇</option>
@@ -129,25 +130,19 @@ $pageTitle = "修改{$cate_ary[$cateNum]}";
               </div>
             </div>
 
-            <div class="d-flex">
-              <!-- 左邊 -->
-              <div class="d-flex flex-column align-items-center flex1">
-                <div id="productCarousel" class="carousel slide w-100 pe-1 mb-3">
-                  <div class="carousel-inner ratio ratio-16x9 bg-secondary">
+            <!-- 商品圖片+上傳 -->
+            <div class="d-flex h550px mb-2">
+              <div class="w500px me-2">
+                <div id="productCarousel" class="carousel slide pb-2">
+                  <div class="carousel-inner">
 
                     <?php foreach ($rowsImg as $index => $rowImg): ?>
                       <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                          <img src="./uploads/<?= htmlspecialchars($rowImg["file"]) ?>"
-                            class="d-block w-100 h-100 object-fit-contain" alt="商品圖片">
+                        <a href="./uploads/<?= htmlspecialchars($rowImg["file"]) ?>" data-lightbox="product-carousel"
+                          data-title="商品圖片 <?= $index + 1 ?>">
+                          <img src="./uploads/<?= htmlspecialchars($rowImg["file"]) ?>" class="d-block w-100" alt="商品圖片">
+                        </a>
                       </div>
-                    <?php endforeach; ?>
-                  </div>
-
-                  <div class="carousel-indicators">
-                    <?php foreach ($rowsImg as $index => $img): ?>
-                      <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="<?= $index ?>"
-                        class="<?= $index === 0 ? 'active' : '' ?>" aria-current="<?= $index === 0 ? 'true' : 'false' ?>"
-                        aria-label="Slide <?= $index + 1 ?>"></button>
                     <?php endforeach; ?>
                   </div>
 
@@ -161,94 +156,71 @@ $pageTitle = "修改{$cate_ary[$cateNum]}";
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">下一張</span>
                   </button>
-                </div>
-
-                <div class="d-flex gap-2 w-100 ">
-                  <div class="input-group mb-2 fakeupload1">
-                    <span class="input-group-text" id="fakeupload1">
-                      更新商品圖片
-                    </span>
-                    <input name="productImg[]" multiple type="file" class="form-control" hidden>
-                  </div>
-
-                  <div class="input-group mb-2 fakeupload2">
-                    <span class="input-group-text" id="fakeupload2">
-                      更新介紹圖片
-                    </span>
-                    <input name="introImg[]" multiple type="file" class="form-control" hidden>
-                  </div>
-                </div>
-
-                <div id="productCarousel2" class="carousel slide w-100 pe-1">
-                  <div class="carousel-inner ratio ratio-16x9 bg-secondary">
-
-                    <?php foreach ($rowsIntroImg as $index => $rowIntroImg): ?>
-                      <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                          <img src="./uploads/<?= htmlspecialchars($rowIntroImg["file"]) ?>"
-                            class="d-block w-100 h-100 object-fit-contain" alt="商品介紹圖片">
-                      </div>
-                    <?php endforeach; ?>
-                  </div>
 
                   <div class="carousel-indicators">
-                    <?php foreach ($rowsIntroImg as $index => $rowIntroImg): ?>
-                      <button type="button" data-bs-target="#productCarousel2" data-bs-slide-to="<?= $index ?>"
+                    <?php foreach ($rowsImg as $index => $img): ?>
+                      <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="<?= $index ?>"
                         class="<?= $index === 0 ? 'active' : '' ?>" aria-current="<?= $index === 0 ? 'true' : 'false' ?>"
                         aria-label="Slide <?= $index + 1 ?>"></button>
                     <?php endforeach; ?>
                   </div>
-
-                  <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel2"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">上一張</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#productCarousel2"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">下一張</span>
-                  </button>
                 </div>
 
-
+                <div class="input-group">
+                  <span class="input-group-text">上傳圖片</span>
+                  <input name="productImg[]" multiple type="file" class="form-control">
+                </div>
               </div>
 
-              <div class="d-flex flex-column flex2 ps-1 ">
-                <div class="input-group mb-2">
+              <!-- 商品資訊區 -->
+              <div class="d-flex flex-column justify-content-between flex-grow-1 gap-2 h550px">
+                <div class="input-group">
                   <span class="input-group-text">商品名稱</span>
                   <input name="name" type="text" class="form-control" placeholder="商品名稱" value="<?= $row["name"] ?>">
                 </div>
-                <div class="d-flex gap-2">
-                  <div class="input-group mb-2">
-                    <span class="input-group-text">商品型號</span>
-                    <input name="modal" type="text" class="form-control" placeholder="型號" value="<?= $row["modal"] ?>">
-                  </div>
-                  <div class="input-group mb-2">
-                    <span class="input-group-text">價格</span>
-                    <input name="price" type="text" class="form-control" placeholder="價格" value="<?= $row["price"] ?>">
-                  </div>
+                <div class="input-group">
+                  <span class="input-group-text">商品型號</span>
+                  <input name="modal" type="text" class="form-control" placeholder="型號" value="<?= $row["modal"] ?>">
                 </div>
-                <div class="input-group mb-2 flex1">
-                  <span class="intro input-group-text ">商品介紹</span>
+                <div class="input-group">
+                  <span class="input-group-text">價格</span>
+                  <input name="price" type="text" class="form-control" placeholder="價格" value="<?= $row["price"] ?>">
+                </div>
+                <div class="input-group h400px">
+                  <span class="input-group-text">商品介紹</span>
                   <textarea name="intro" class="form-control overflow-y-auto resize-none"
                     aria-label="With textarea"><?= $row["intro"] ?></textarea>
                 </div>
-                <div class="input-group flex1">
-                  <span class="spec input-group-text">商品規格</span>
-                  <textarea name="spec" class="form-control overflow-y-auto resize-none"
-                    aria-label="With textarea"><?= $row["spec"] ?></textarea>
-                </div>
               </div>
-
             </div>
 
-            <div class="mt-2 text-end">
-              <button type="submit" class="btn btn-send">
-                <i class="fas fa-check"></i>
-                送出</button>
-              <a class="btn btn-cancel" href="./index.php">
-                <i class="fas fa-times"></i>
-                取消</a>
+            <div class="d-flex gap-2">
+              <div class="d-flex flex-column w500px">
+                <div class="input-group mb-2">
+                  <span class="input-group-text">上傳商品介紹圖片</span>
+                  <input name="introImg[]" multiple type="file" class="form-control">
+                </div>
+                <div class="d-flex gap-2 w500px flex-wrap">
+                  <?php foreach ($rowsIntroImg as $index => $rowIntroImg): ?>
+                    <div>
+                      <a href="./uploads/<?= htmlspecialchars($rowIntroImg["file"]) ?>" data-lightbox="gallery"
+                        data-title="商品介紹圖 <?= $index + 1 ?>">
+                        <img src="./uploads/<?= htmlspecialchars($rowIntroImg["file"]) ?>" class="wh100px" alt="商品介紹圖片">
+                      </a>
+                    </div>
+                  <?php endforeach; ?>
+                </div>
+              </div>
+              <div class="input-group mb-2 h400px">
+                <span class="input-group-text">商品規格</span>
+                <textarea name="spec" class="form-control overflow-y-auto resize-none"
+                  aria-label="With textarea"><?= $row["spec"] ?></textarea>
+              </div>
+            </div>
+
+            <div class="mt-3 text-end">
+              <button type="submit" class="btn btn-send">送出</button>
+              <a class="btn btn-cancel" href="./index.php">取消修改</a>
             </div>
           </form>
         </div>
@@ -282,29 +254,6 @@ $pageTitle = "修改{$cate_ary[$cateNum]}";
         selectSub.append(option);
       });
     }
-
-    document.querySelector('.fakeupload1').addEventListener('click', () => {
-      document.querySelector('.fakeupload1 input[type="file"]').click();
-    });
-
-    document.querySelector('.fakeupload2').addEventListener('click', () => {
-      document.querySelector('.fakeupload2 input[type="file"]').click();
-    });
-
-    const btnDels = document.querySelectorAll(".btn-del");
-
-    btnDels.forEach((btn) => {
-      btn.addEventListener("click", doConfirm);
-    });
-
-    function doConfirm(e) {
-      const btn = e.currentTarget; // ✅ 改這裡
-      //通常window可省略
-      if (window.confirm("確定要下架商品嗎？")) {
-        window.location.href = `./doDelete.php?id=${btn.dataset.id}`
-      }
-    };
-
   </script>
 </body>
 

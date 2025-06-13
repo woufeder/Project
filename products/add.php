@@ -45,7 +45,7 @@ $pageTitle = "新增{$cate_ary[$cateNum]}";
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../products/css/add.css">
+  <link rel="stylesheet" href="../products/css/add_up.css">
 </head>
 
 <body>
@@ -66,17 +66,10 @@ $pageTitle = "新增{$cate_ary[$cateNum]}";
         </div>
 
         <div class="list-area  p-5">
-          <!-- <div class="d-flex align-items-center">
-      <h1><?= $pageTitle ?></h1>
-      <a class="btn btn-add ms-auto " href="./add.php">建立類別</a>
-    </div> -->
 
           <form action="./doAdd.php" method="post" enctype="multipart/form-data">
-            <!-- <div class="input-group mb-2">
-        <span class="input-group-text">品牌名稱</span>
-        <input name="brand" type="text" class="form-control" placeholder="品牌名稱">
-      </div> -->
 
+            <!-- 上面三條 -->
             <div class="d-flex gap-2 mb-2">
               <div class="input-group">
                 <span class="input-group-text">主分類名稱</span>
@@ -103,48 +96,88 @@ $pageTitle = "新增{$cate_ary[$cateNum]}";
                 </select>
               </div>
             </div>
+            <div class="d-flex">
+              <!-- 左邊 -->
+              <div class="d-flex flex-column align-items-center flex1">
+                <div id="preview1" class="carousel slide w-100 pe-1 mb-3" data-bs-ride="carousel">
+                  <div class="carousel-inner ratio ratio-16x9 bg-secondary" id="preview-img">
+                  </div>
+                  <div class="carousel-indicators" id="preview-indicators"></div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#preview1" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#preview1" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                  </button>
+                </div>
 
-            <div class="input-group mb-2">
-              <span class="input-group-text">商品名稱</span>
-              <input name="name" type="text" class="form-control" placeholder="商品名稱">
-            </div>
-            <div class="input-group mb-2">
-              <!-- 後續要是可以自己寫一張吧 -->
-              <span class="input-group-text">上傳圖片</span>
-              <input name="productImg[]" multiple type="file" class="form-control">
-            </div>
-            <div class="d-flex gap-2">
-              <div class="input-group mb-2">
-                <span class="input-group-text">商品型號</span>
-                <input name="modal" type="text" class="form-control" placeholder="價格">
+                <div class="d-flex gap-2 w-100 ">
+                  <div class="input-group mb-2 fakeupload1">
+                    <span class="input-group-text" id="fakeupload1">
+                      點擊上傳商品圖片
+                    </span>
+                    <input name="productImg[]" multiple type="file" id="upload-img" class="form-control" hidden>
+                  </div>
+
+                  <div class="input-group mb-2">
+                    <span class="input-group-text " id="fakeupload2">
+                      點擊上傳介紹圖片
+                    </span>
+                    <input name="introImg[]" multiple type="file" id="upload-introimg" class="form-control" hidden>
+                  </div>
+                </div>
+
+                <div id="preview2" class="carousel slide w-100 pe-1" data-bs-ride="carousel">
+                  <div class="carousel-inner ratio ratio-16x9 bg-secondary" id="preview-intro">
+                  </div>
+                  <div class="carousel-indicators" id="preview-intro-indicators"></div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#preview2" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#preview2" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                  </button>
+                </div>
+
               </div>
-              <div class="input-group mb-2">
-                <span class="input-group-text">價格</span>
-                <input name="price" type="text" class="form-control" placeholder="價格">
+
+              <div class="d-flex flex-column flex2 ps-1 ">
+                <div class="input-group mb-2">
+                  <span class="input-group-text">商品名稱</span>
+                  <input name="name" type="text" class="form-control" placeholder="商品名稱">
+                </div>
+                <div class="d-flex gap-2">
+                  <div class="input-group mb-2">
+                    <span class="input-group-text">商品型號</span>
+                    <input name="modal" type="text" class="form-control" placeholder="請填寫商品型號">
+                  </div>
+                  <div class="input-group mb-2">
+                    <span class="input-group-text">價格</span>
+                    <input name="price" type="text" class="form-control" placeholder="請填寫價格">
+                  </div>
+                </div>
+                <div class="input-group mb-2 flex1">
+                  <span class="intro input-group-text h-">商品介紹</span>
+                  <textarea name="intro" class="form-control resize-none" aria-label="With textarea"></textarea>
+                </div>
+                <div class="input-group flex1">
+                  <span class="spec input-group-text">商品規格</span>
+                  <textarea name="spec" class="form-control resize-none" aria-label="With textarea"></textarea>
+                </div>
               </div>
+
             </div>
-            <div class="input-group mb-2">
-              <span class="intro input-group-text">商品介紹</span>
-              <textarea name="intro" class="form-control" aria-label="With textarea"></textarea>
-            </div>
-            <div class="input-group mb-2">
-              <span class="spec input-group-text">商品規格</span>
-              <textarea name="spec" class="form-control" aria-label="With textarea"></textarea>
-            </div>
-            <div class="input-group mb-2">
-              <span class="input-group-text">上傳商品介紹圖片</span>
-              <input name="introImg[]" multiple type="file" class="form-control">
-            </div>
-            <div class="mt-3 text-end">
-              <button type="submit" class="btn btn-send">送出</button>
-              <a class="btn btn-cancel" href="./index.php">取消</a>
+
+            <div class="mt-2 text-end">
+              <button type="submit" class="btn btn-send">
+                <i class="fas fa-check"></i>
+                送出</button>
+              <a class="btn btn-cancel" href="./index.php">
+                <i class="fas fa-times"></i>
+                取消</a>
             </div>
           </form>
-
         </div>
-
-
-
 
       </main>
     </div>
@@ -175,6 +208,103 @@ $pageTitle = "新增{$cate_ary[$cateNum]}";
         selectSub.append(option);
       });
     }
+
+    const uploadImg = document.getElementById('upload-img');
+    const uploadIntro = document.getElementById('upload-introimg');
+    const fakeUpload1 = document.querySelector("#fakeupload1");
+    const fakeUpload2 = document.querySelector("#fakeupload2");
+    const previewImg = document.querySelector("#preview-img");
+    const previewIntro = document.querySelector("#preview-intro");
+
+    fakeUpload1.addEventListener('click', () => {
+      uploadImg.click();
+    });
+    fakeUpload2.addEventListener('click', () => {
+      uploadIntro.click();
+    });
+
+    uploadImg.addEventListener('change', () => {
+      const count = uploadImg.files.length;
+
+      if (count > 0) {
+        fakeUpload1.textContent = `已選擇 ${count} 張圖片`;
+      }
+
+      previewImg.innerHTML = ''; // 清空預覽
+      const files = uploadImg.files;
+
+      // ⭐ 清空指標
+      const indicatorContainer = document.getElementById('preview-indicators');
+      indicatorContainer.innerHTML = '';
+
+      Array.from(files).forEach((file, index) => {
+        // 加入圖片 carousel item
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const carouselItem = document.createElement('div');
+          carouselItem.className = 'carousel-item' + (index === 0 ? ' active' : '');
+          carouselItem.innerHTML = `<img src="${e.target.result}" class="d-block w-100 h-100 object-fit-contain" alt="預覽圖片">`;
+          previewImg.appendChild(carouselItem);
+        };
+        reader.readAsDataURL(file);
+
+        // ⭐ 同步新增 indicator
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.setAttribute('data-bs-target', '#preview1');
+        button.setAttribute('data-bs-slide-to', index);
+        button.setAttribute('aria-label', `Slide ${index + 1}`);
+        if (index === 0) {
+          button.classList.add('active');
+          button.setAttribute('aria-current', 'true');
+        }
+        indicatorContainer.appendChild(button);
+      });
+    });
+
+
+uploadIntro.addEventListener('change', () => {
+  const count = uploadIntro.files.length;
+
+  if (count > 0) {
+    fakeUpload2.textContent = `已選擇 ${count} 張圖片`;
+  }
+
+  previewIntro.innerHTML = ''; // 清空預覽
+  const files = uploadIntro.files;
+
+  // ⭐ 清空指標
+  const indicatorContainer = document.getElementById('preview-intro-indicators');
+  indicatorContainer.innerHTML = '';
+
+  Array.from(files).forEach((file, index) => {
+    // 加入圖片 carousel item
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const carouselItem = document.createElement('div');
+      carouselItem.className = 'carousel-item' + (index === 0 ? ' active' : '');
+      carouselItem.innerHTML = `<img src="${e.target.result}" class="d-block w-100 h-100 object-fit-contain" alt="預覽圖片">`;
+      previewIntro.appendChild(carouselItem);
+    };
+    reader.readAsDataURL(file);
+
+    // ⭐ 同步新增 indicator
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.setAttribute('data-bs-target', '#preview2');
+    button.setAttribute('data-bs-slide-to', index);
+    button.setAttribute('aria-label', `Slide ${index + 1}`);
+    if (index === 0) {
+      button.classList.add('active');
+      button.setAttribute('aria-current', 'true');
+    }
+    indicatorContainer.appendChild(button);
+  });
+});
+
+
+  </script>
+
   </script>
 </body>
 
