@@ -1,6 +1,6 @@
 <?php
-require_once "../connect.php";
-require_once "../Utilities.php";
+require_once "./connect.php";
+require_once "./Utilities.php";
 
 // 取得資料
 $code = $_POST["code"];
@@ -10,8 +10,6 @@ $value = $_POST["value"];
 $min = $_POST["min"];
 $start_at = $_POST["start_at"] . " 00:00:00";
 $expires_at = $_POST["expires_at"] . " 23:59:59";
-
-$img_id = $_POST["img_id"] ?? null;
 
 // 1. 資料驗證
 if (empty($code)) {
@@ -60,13 +58,13 @@ try {
 
 // 3. 寫入資料
 $sql = "INSERT INTO coupon 
-(code, `desc`, type, value, min, start_at, expires_at, img_id)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+(code, `desc`, type, value, min, start_at, expires_at)
+VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 
 try {
   $stmt = $pdo->prepare($sql);
-  $stmt->execute([$code, $desc, $type, $value, $min, $start_at, $expires_at, $img_id]);
+  $stmt->execute([$code, $desc, $type, $value, $min, $start_at, $expires_at]);
 } catch (PDOException $e) {
   echo "新增失敗 " . $e->getMessage();
   exit;

@@ -1,6 +1,6 @@
 <?php
-require_once "../connect.php";
-require_once "../Utilities.php";
+require_once "./connect.php";
+require_once "./Utilities.php";
 
 // 驗證 id
 if (!isset($_GET["id"]) || empty($_GET["id"])) {
