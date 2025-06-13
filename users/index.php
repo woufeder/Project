@@ -1,7 +1,5 @@
 <?php
 // php -S localhost:8888
-// modal
-// 公版連接登出功能 註冊功能確認
 
 session_start();
 
@@ -230,7 +228,6 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                     <div class="d-flex align-items-center">
                         <h1 class="primary">會員列表</h1>
                         <div class="ms-5 primary">&laquo; 總共 <?= $totalCount ?> 位會員 &raquo;</div>
-                        <a class="btn btn-lg btn-b ms-auto" href="./deleteIndex.php">停權會員列表</a>
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center mt-4">
