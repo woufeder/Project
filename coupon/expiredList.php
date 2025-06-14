@@ -5,7 +5,8 @@ require_once "./connect.php";
 require_once "./Utilities.php";
 
 // 自動將過期或被刪除的優惠券設為未啟用
-$pdo->exec("UPDATE coupon SET is_active = 0 WHERE (is_valid = 0 OR expires_at < NOW()) AND is_active = 1");
+$pdo->exec("UPDATE coupon SET is_valid = 0, is_active = 0 WHERE expires_at < NOW() AND is_valid = 1");
+
 
 $cateNum = 2;
 $pageTitle = "已失效優惠券列表";
