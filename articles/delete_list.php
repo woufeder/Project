@@ -1,8 +1,7 @@
 <?php // 回收桶（已刪除文章列表/還原）頁
-require_once "./tools/db.php";
-require_once "./tools/utilities.php";
-require_once "./tools/vars.php";
-$pdo = getPDO();
+require_once "./db.php";
+require_once "./utilities.php";
+require_once "../vars.php";
 
 // 取得所有已刪除文章及分類，顯示於回收桶列表
 $sql = "SELECT a.*, c.name AS category_name FROM articles a JOIN categories c ON a.category_id = c.id WHERE a.is_deleted = 1 ORDER BY a.created_at DESC";
@@ -27,17 +26,17 @@ $totalCount = count($articles);
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/main.css">
-  <link rel="stylesheet" href="./css/form.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/form.css">
   <link rel="stylesheet" href="./css/index.css">
   <link rel="stylesheet" href="./css/article_modern.css">
 </head>
 
 <body>
   <div class="dashboard">
-    <?php include './tools/template_sidebar.php'; ?>
+    <?php include '../template_sidebar.php'; ?>
     <div class="main-container overflow-auto">
-      <?php include './tools/template_header.php'; ?>
+      <?php include '../template_header.php'; ?>
       <main>
         <div class="container-fluid px-3 mt-3">
           <div class="modern-card d-flex align-items-center flex-wrap gap-2">
