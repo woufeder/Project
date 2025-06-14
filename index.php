@@ -1,4 +1,5 @@
 <?php
+require_once "login_check.php";
 include "./template_btn.php";
 include "./vars.php";
 $cateNum = -1;

@@ -16,15 +16,16 @@
     </div>
   </div>
 
-  <div class="user-info d-flex align-items-center">
+
+    <div class="user-info d-flex align-items-center">
     <div class="adminphoto">
       <!-- 會員相片 -->
-      <img src="https://randomuser.me/api/portraits/women/51.jpg" alt="">
+      <img class="head" src="../users/imgs/<?= $_SESSION["user"]["img"] ?>" alt="">
     </div>
     <div class="adminname">
       <!-- 會員名稱 -->
-      <h6>Billie Pierce</h6>
-      <p>yellowpeacock117</p>
+      <h6><?= $_SESSION["user"]["name"] ?></h6>
+      <p><?= $_SESSION["user"]["account"] ?></p>
     </div>
   </div>
   <!-- </div> -->

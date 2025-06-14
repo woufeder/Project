@@ -1,33 +1,41 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
 .list-area {
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
   border-radius: 5px;
   box-shadow: 0 0 10px 3px var(--box-shadow);
   border-radius: 3px;
 }
 
-.btn-del, .btn-cancel {
+.btn-del {
   background-color: var(--color-text-inverse);
   color: var(--color-accent);
   transition: all 0.5s;
 }
 
-.btn-update,
-.btn-send {
+.btn-update {
   background-color: var(--color-accent);
   color: var(--color-bg);
   transition: all 0.5s;
 }
 
-.btn-return{
-background-color: var(--color-bg);
-border: 1px solid var(--color-primary);
-color: var(--color-primary);
+.btn-return {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
 }
+
 .btn-update:hover,
 .btn-return:hover,
-.btn-del:hover,
-.btn-cancel:hover,
-.btn-send:hover {
+.btn-del:hover {
   color: var(--color-primary);
   opacity: 0.5;
 }
@@ -50,16 +58,6 @@ color: var(--color-primary);
 }
 
 
-.resize-none {
-  resize: none;
-}
-
-.input-group-text {
-  background: var(--color-primary);
-  color: var(--color-bg);
-  border: 1px solid var(--color-primary);
-}
-
 
 .flex1 {
   flex: 1;
@@ -67,6 +65,10 @@ color: var(--color-primary);
 
 .flex2 {
   flex: 2;
+}
+
+.flex3 {
+  flex: 3;
 }
 
 .fakeupload1 {
@@ -80,27 +82,37 @@ color: var(--color-primary);
 }
 
 input::placeholder {
-  color: var(--color-primary)!important;
-  opacity: 1!important;
+  color: var(--color-primary) !important;
+  opacity: 1 !important;
 }
 
 main .form-select,
 main .form-control {
-    background-color: var(--color-surface);
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
 }
 
 main .form-control:focus,
 main .form-select:focus {
-    background-color: var(--color-bg);
-    color: var(--color-primary);
-    border-color: var(--color-text-inverse);
-    outline: 0;
-    border: 0;
-    box-shadow: 0 0 0 .15rem rgba(63, 114, 175, 0.8);
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  border-color: var(--color-text-inverse);
+  outline: 0;
+  border: 0;
+  box-shadow: 0 0 0 .15rem rgba(63, 114, 175, 0.8);
 }
 
 .preserve-format {
   white-space: pre-wrap;
+  word-break: break-word;
+  font-family: inherit;
+  margin: 0;
+}
+
+.p-modal {
+  height: 50px;
+  width: 100%;
+  background-color: var(--color-border);
+  color: var(--color-text-inverse);
 }
