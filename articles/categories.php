@@ -1,7 +1,6 @@
 <?php // 文章分類管理頁
-require_once "./tools/db.php";
-require_once "./tools/vars.php";
-$pdo = getPDO();
+require_once "./db.php";
+require_once "../vars.php"; 
 
 // 新增分類
 if (isset($_POST['add_name'])) {
@@ -50,17 +49,17 @@ $totalCount = count($categories);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/form.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/form.css">
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/article_modern.css">
     <link rel="stylesheet" href="./css/categories_custom.css">
 </head>
 <body>
 <div class="dashboard">
-  <?php include './tools/template_sidebar.php'; ?>
+  <?php include '../template_sidebar.php'; ?>
   <div class="main-container overflow-auto">
-    <?php include './tools/template_header.php'; ?>
+    <?php include '../template_header.php'; ?>
     <main>
       <div class="container-fluid px-3 mt-3">
         <div class="modern-card">
@@ -93,17 +92,17 @@ $totalCount = count($categories);
                 <!-- 分類列表 -->
                 <?php foreach ($categories as $idx => $cat): ?>
                 <tr>
-                  <form method="post" class="d-flex align-items-center">
-                    <td><?= $idx + 1 ?></td>
-                    <td>
+                  <td><?= $idx + 1 ?></td>
+                  <td>
+                    <form method="post" class="d-inline">
                       <input type="hidden" name="edit_id" value="<?= $cat['id'] ?>">
                       <input type="text" class="form-control" name="edit_name" value="<?= htmlspecialchars($cat['name']) ?>" required style="max-width:220px;display:inline-block;">
-                    </td>
-                    <td class="d-flex gap-1">
                       <button class="btn btn-sm btn-update me-1" type="submit"><i class="fa-solid fa-pen"></i> 編輯</button>
+                    </form>
+                    <form method="post" class="d-inline">
                       <button class="btn btn-sm btn-del" type="submit" name="delete_id" value="<?= $cat['id'] ?>" onclick="return confirm('確定要刪除這個分類嗎？');"><i class="fa-solid fa-trash"></i> 刪除</button>
-                    </td>
-                  </form>
+                    </form>
+                  </td>
                 </tr>
                 <?php endforeach; ?>
               </tbody>

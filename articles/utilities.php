@@ -15,14 +15,14 @@ function alertGoTo($msg="", $url="index.php"){
 function alertToIndex($msg=""){
   echo "<script>
     alert('$msg');
-    window.location = './pageMsgsList.php';
+    window.location = './index.php';
   </script>";
 }
 
 // 有預設值的參數要往最後放
 function timeoutGoBack($time=1000){
   echo "<script>
-    setTimeout(()=>window.location = './pageMsgsList.php', $time);
+    setTimeout(()=>window.location = './index.php', $time);
   </script>";
 }
 
