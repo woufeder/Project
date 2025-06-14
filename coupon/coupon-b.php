@@ -1,4 +1,5 @@
 <?php
+require_once "./Utilities.php";
 function formatDiscount($type, $value)
 {
   return $type == 1 ? $value . "% OFF" : "折 $" . $value . " 元";

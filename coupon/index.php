@@ -3,6 +3,8 @@ include "../template_btn.php";
 include "../vars.php";
 require_once "./connect.php";
 require_once "./coupon-b.php";
+require_once "./Utilities.php";
+
 $cateNum = 2;
 $pageTitle = "{$cate_ary[$cateNum]}列表";
 
@@ -137,82 +139,8 @@ $totalPage = ceil($totalCount / $perPage);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/main.css">
-    <style>
-        /* （CSS 保持不變） */
-        body {
-            background-color: #DBE2EF;
-        }
-
-        .coupon-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .btn-del {
-            background: rgb(255, 208, 78);
-            color:rgb(171, 102, 22);
-        }
-
-        .btn-del:hover {
-            background:rgb(255, 120, 29);
-            color: #fff;
-        }
-
-        .btn-cha {
-            background:rgb(154, 200, 255);
-            color: #3F72AF;
-        }
-
-        .btn-cha:hover {
-            background: #3F72AF;
-            color: #fff;
-        }
-
-        .pagination .page-item.active .page-link {
-            background: hsl(213, 100.00%, 89.20%);
-            border-color: #3F72AF;
-        }
-
-        .pagination .page-link {
-            color: #3F72AF;
-        }
-
-        .coupon-card {
-            position: relative;
-            color: #fff;
-        }
-
-        .coupon-card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-        }
-
-        .coupon-card>div {
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-add {
-            background: #3F72AF;
-            color: #fff;
-        }
-
-        .btn-toggle-on {
-            background: #ffd66e;
-            color: #000;
-        }
-
-        .btn-toggle-off {
-            background: #6c757d;
-            color: #fff;
-            border: 1px solid #545b62;
-        }
-    </style>
+    <link rel="stylesheet" href="./index.css">
+    
 </head>
 
 <body>

@@ -2,6 +2,7 @@
 include "../template_btn.php";
 include "../vars.php";
 require_once "./connect.php";
+require_once "./Utilities.php";
 $cateNum = 2;
 $pageTitle = "{$cate_ary[$cateNum]}列表";
 
