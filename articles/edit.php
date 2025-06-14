@@ -1,8 +1,7 @@
 <?php
-require_once "./tools/db.php";
-require_once "./tools/utilities.php";
-require_once "./tools/vars.php";
-$pdo = getPDO();
+require_once "./db.php";
+require_once "./utilities.php";
+require_once "../vars.php";
 
 // 檢查是否有傳入文章 id，否則導回
 if (!isset($_GET['id'])) {
@@ -42,108 +41,19 @@ $cateNum = 3;
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/form.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/form.css">
+    <link rel="stylesheet" href="./css/editor.css">
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/article_modern.css">
-    <style>
-        body {
-            background: #f8fafc;
-            font-family: 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
-        }
-
-        .card {
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-            border-radius: 18px;
-            border: none;
-        }
-
-        .form-label {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .input-group-text {
-            min-width: 90px;
-            background: #f1f3f6;
-            font-weight: 500;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #0d6efd;
-            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, .1);
-        }
-
-        .img-preview {
-            max-width: 220px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 8px;
-        }
-
-        .btn-send {
-            min-width: 100px;
-        }
-
-        .btn-cancel {
-            min-width: 80px;
-        }
-
-        @media (max-width: 576px) {
-            .card {
-                padding: 0.5rem;
-            }
-
-            .btn-send,
-            .btn-cancel {
-                width: 100%;
-                margin-bottom: 8px;
-            }
-
-            .mt-3.text-end {
-                text-align: center !important;
-            }
-        }
-
-        .editor-toolbar {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-bottom: none;
-            border-radius: 4px 4px 0 0;
-            padding: 8px;
-        }
-        .editor-toolbar button {
-            background: white;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            padding: 4px 8px;
-            margin-right: 4px;
-            cursor: pointer;
-        }
-        .editor-toolbar button:hover {
-            background: #e9ecef;
-        }
-        .editor-content {
-            border: 1px solid #dee2e6;
-            border-radius: 0 0 4px 4px;
-            min-height: 300px;
-            padding: 12px;
-            background: white;
-        }
-        .editor-content:focus {
-            outline: none;
-            border-color: #86b7fe;
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-        }
-    </style>
+    <link rel="stylesheet" href="./css/articles.css">
 </head>
 
 <body>
     <div class="dashboard">
-        <?php include './tools/template_sidebar.php'; ?>
+        <?php include '../template_sidebar.php'; ?>
         <div class="main-container overflow-auto">
-            <?php include './tools/template_header.php'; ?>
+            <?php include '../template_header.php'; ?>
             <main>
                 <div class="container-fluid px-3 mt-3">
                     <div class="modern-card">
@@ -175,6 +85,13 @@ $cateNum = 3;
                             <div class="mb-3">
                                 <label class="form-label">內容</label>
                                 <div class="editor-toolbar">
+                                    <select id="fontSizeSelect" onchange="setFontSize(this.value)" style="margin-right:4px;">
+                                        <option value="">字體大小</option>
+                                        <option value="1">小</option>
+                                        <option value="3">標準</option>
+                                        <option value="5">大</option>
+                                        <option value="7">特大</option>
+                                    </select>
                                     <button type="button" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
                                     <button type="button" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
                                     <button type="button" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
@@ -203,12 +120,16 @@ $cateNum = 3;
             document.execCommand(command, false, null);
             document.getElementById('editor').focus();
         }
-
+        function setFontSize(size) {
+            if(size) {
+                document.execCommand('fontSize', false, size);
+                document.getElementById('editor').focus();
+            }
+        }
         function insertList(type) {
             document.execCommand('insert' + type, false, null);
             document.getElementById('editor').focus();
         }
-
         function insertLink() {
             const url = prompt('請輸入連結網址：');
             if (url) {
@@ -216,7 +137,6 @@ $cateNum = 3;
             }
             document.getElementById('editor').focus();
         }
-
         function insertImage() {
             const url = prompt('請輸入圖片網址：');
             if (url) {
@@ -224,7 +144,6 @@ $cateNum = 3;
             }
             document.getElementById('editor').focus();
         }
-
         function prepareContent() {
             document.getElementById('content').value = document.getElementById('editor').innerHTML;
         }

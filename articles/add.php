@@ -1,8 +1,7 @@
 <?php
-require_once "./tools/db.php";
-require_once "./tools/utilities.php";
-require_once "./tools/vars.php";
-$pdo = getPDO();    
+require_once "./db.php";
+require_once "./utilities.php";
+include "../vars.php";   
 
 // 取得所有分類，供下拉選單使用
 $sql = "SELECT * FROM categories";
@@ -26,8 +25,9 @@ $cateNum = 3;
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/form.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/form.css">
+    <link rel="stylesheet" href="./css/editor.css">
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/article_modern.css">
     <style>
@@ -61,14 +61,22 @@ $cateNum = 3;
             border-color: #86b7fe;
             box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
         }
+        /* 對應 execCommand fontSize 1~7 實際字體大小 */
+        .editor-content font[size="1"] { font-size: 12px; }
+        .editor-content font[size="2"] { font-size: 14px; }
+        .editor-content font[size="3"] { font-size: 16px; }
+        .editor-content font[size="4"] { font-size: 18px; }
+        .editor-content font[size="5"] { font-size: 22px; }
+        .editor-content font[size="6"] { font-size: 28px; }
+        .editor-content font[size="7"] { font-size: 36px; }
     </style>
 </head>
 
 <body>
     <div class="dashboard">
-        <?php include './tools/template_sidebar.php'; ?>
+        <?php include '../template_sidebar.php'; ?>
         <div class="main-container overflow-auto">
-            <?php include './tools/template_header.php'; ?>
+            <?php include '../template_header.php'; ?>
             <main>
                 <div class="container-fluid px-3 mt-3">
                     <div class="modern-card">
@@ -93,6 +101,13 @@ $cateNum = 3;
                             <div class="mb-3">
                                 <label class="form-label">內容</label>
                                 <div class="editor-toolbar">
+                                    <select id="fontSizeSelect" onchange="setFontSize(this.value)" style="margin-right:4px;">
+                                        <option value="">字體大小</option>
+                                        <option value="1">小</option>
+                                        <option value="3">標準</option>
+                                        <option value="5">大</option>
+                                        <option value="7">特大</option>
+                                    </select>
                                     <button type="button" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
                                     <button type="button" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
                                     <button type="button" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
@@ -121,12 +136,16 @@ $cateNum = 3;
             document.execCommand(command, false, null);
             document.getElementById('editor').focus();
         }
-
+        function setFontSize(size) {
+            if(size) {
+                document.execCommand('fontSize', false, size);
+                document.getElementById('editor').focus();
+            }
+        }
         function insertList(type) {
             document.execCommand('insert' + type, false, null);
             document.getElementById('editor').focus();
         }
-
         function insertLink() {
             const url = prompt('請輸入連結網址：');
             if (url) {
@@ -134,7 +153,6 @@ $cateNum = 3;
             }
             document.getElementById('editor').focus();
         }
-
         function insertImage() {
             const url = prompt('請輸入圖片網址：');
             if (url) {
@@ -142,7 +160,6 @@ $cateNum = 3;
             }
             document.getElementById('editor').focus();
         }
-
         function prepareContent() {
             document.getElementById('content').value = document.getElementById('editor').innerHTML;
         }

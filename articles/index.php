@@ -1,8 +1,7 @@
 <?php // 文章列表、搜尋、分類、操作主頁
-require_once "./tools/db.php";
-require_once "./tools/vars.php";
-require_once "./tools/utilities.php";
-$pdo = getPDO();
+require_once "./db.php";
+require_once "./utilities.php";
+include "../vars.php";
 
 // 取得所有分類，供下拉選單使用
 $sql_cat = "SELECT * FROM categories ORDER BY id ASC";
@@ -54,8 +53,8 @@ $stmt_count->execute();
 $totalCount = $stmt_count->fetchColumn();
 $totalPages = ceil($totalCount / $perPage);
 
-// 最多只顯示5頁
-$maxShowPages = 5;
+// 最多只顯示10頁
+$maxShowPages = 10;
 $startPage = max(1, $page - floor($maxShowPages / 2));
 $endPage = min($totalPages, $startPage + $maxShowPages - 1);
 if ($endPage - $startPage + 1 < $maxShowPages) {
@@ -93,30 +92,20 @@ $pageTitle = "文章列表";
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/form.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/form.css">
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/article_modern.css">
+    <link rel="stylesheet" href="./css/articles.css">
     <style>
-        .date-range-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .date-range-container input[type="date"] {
-            padding: 4px 8px;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            font-size: 14px;
-        }
     </style>
 </head>
 
 <body>
     <div class="dashboard">
-        <?php include './tools/template_sidebar.php'; ?>
+        <?php include '../template_sidebar.php'; ?>
         <div class="main-container overflow-auto">
-            <?php include './tools/template_header.php'; ?>
+            <?php include '../template_header.php'; ?>
             <main>
                 <div class="container-fluid px-3 mt-3">
                     <div class="modern-card d-flex align-items-center flex-wrap gap-2">
@@ -129,9 +118,14 @@ $pageTitle = "文章列表";
                                 <?php endforeach; ?>
                             </select>
                             <div class="date-range-container">
-                                <input type="date" name="start_date" class="form-control form-control-sm" value="<?= htmlspecialchars($start_date) ?>" placeholder="開始日期" onchange="this.form.submit()">
-                                <span>至</span>
-                                <input type="date" name="end_date" class="form-control form-control-sm" value="<?= htmlspecialchars($end_date) ?>" placeholder="結束日期" onchange="this.form.submit()">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="fw-bold" style="color: #5A7EC5; white-space: nowrap;">更新時間：</span>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="date" name="start_date" class="form-control form-control-sm" value="<?= htmlspecialchars($start_date) ?>" placeholder="開始日期" onchange="this.form.submit()">
+                                        <span class="text-muted">至</span>
+                                        <input type="date" name="end_date" class="form-control form-control-sm" value="<?= htmlspecialchars($end_date) ?>" placeholder="結束日期" onchange="this.form.submit()">
+                                    </div>
+                                </div>
                             </div>
                             <input type="text" name="keyword" class="form-control form-control-sm" placeholder="搜尋標題或內容" value="<?= htmlspecialchars($search_keyword) ?>" style="width:180px;">
                             <button type="submit" class="btn btn-sm btn-info"><i class="fa fa-search"></i> 搜尋</button>
@@ -162,7 +156,9 @@ $pageTitle = "文章列表";
                                     <td><?= htmlspecialchars($article['category_name']) ?></td>
                                     <td>
                                       <?php if ($article['cover_image']): ?>
-                                        <img src="./uploads/<?= htmlspecialchars($article['cover_image']) ?>" alt="封面" style="max-width:120px;max-height:80px;border-radius:4px;object-fit:cover;box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+                                        <div class="cover-image-container">
+                                          <img src="./uploads/<?= htmlspecialchars($article['cover_image']) ?>" alt="封面" style="max-width:120px;max-height:80px;border-radius:4px;object-fit:cover;box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+                                        </div>
                                       <?php else: ?>
                                         <span class="text-muted">無</span>
                                       <?php endif; ?>

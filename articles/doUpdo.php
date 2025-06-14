@@ -1,8 +1,7 @@
 <?php // 狀態切換（如上架/下架）處理
-require_once "./tools/db.php";
-require_once "./tools/utilities.php";
+require_once "./db.php";
+require_once "./utilities.php";
 
-$pdo = getPDO();
 
 if (!isset($_GET["id"])) {
   echo "請循正常管道進入本頁";
