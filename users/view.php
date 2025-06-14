@@ -51,6 +51,7 @@ try {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="./btn.css">
     <style>
         :root {
             --color-bg: #ffffff;
@@ -202,7 +203,7 @@ try {
         </div>
 
         <div class="text-center mt-4">
-            <a class="btn btn-primary" href="./index.php">返回會員列表</a>
+            <a class="btn btn-b" href="./index.php"><i class="fa-solid fa-rotate-left me-2"></i>返回會員列表</a>
         </div>
     </div>
 
