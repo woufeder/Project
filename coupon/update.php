@@ -115,7 +115,7 @@ try {
           <div class="card p-4">
             <form id="couponForm" action="./doUpdate.php" method="post" enctype="multipart/form-data">
               <input type="hidden" name="id" value="<?= $row["id"] ?>">
-
+              <input type="hidden" name="referer" value="<?= $_SERVER["HTTP_REFERER"] ?? './index.php' ?>">
               <div class="mb-3">
                 <label class="form-label">優惠碼</label>
                 <input name="code" value="<?= $row["code"] ?>" class="form-control" required>
@@ -145,16 +145,27 @@ try {
                 <input type="number" name="min" value="<?= $row["min"] ?>" class="form-control" required>
               </div>
 
-              <div class="mb-3">
-                <label class="form-label">開始日期</label>
-                <input type="date" name="start_at" value="<?= substr($row["start_at"], 0, 10) ?>" class="form-control"
-                  required>
+              <div class="row mb-3 align-items-end">
+                <div class="col">
+                  <label class="form-label">開始日期</label>
+                  <input type="date" name="start_at" value="<?= substr($row["start_at"], 0, 10) ?>" class="form-control"
+                    required>
+                </div>
+                <div class="col-auto">
+                  <span class="fw-bold">~</span>
+                </div>
+                <div class="col">
+                  <label class="form-label">結束日期</label>
+                  <input type="date" name="expires_at" value="<?= substr($row["expires_at"], 0, 10) ?>"
+                    class="form-control" required>
+                </div>
               </div>
 
-              <div class="mb-3">
-                <label class="form-label">結束日期</label>
-                <input type="date" name="expires_at" value="<?= substr($row["expires_at"], 0, 10) ?>"
-                  class="form-control" required>
+              <!-- 是否啟用 -->
+              <div class="mb-3 form-check form-switch">
+                <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1"
+                  <?= $row["is_active"] ? "checked" : "" ?>>
+                <label class="form-check-label" for="is_active">啟用此優惠券</label>
               </div>
 
               <div class="text-end mt-4">

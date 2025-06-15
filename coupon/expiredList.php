@@ -2,8 +2,14 @@
 include "../template_btn.php";
 include "../vars.php";
 require_once "./connect.php";
+require_once "./Utilities.php";
+
+// 自動將過期或被刪除的優惠券設為未啟用
+$pdo->exec("UPDATE coupon SET is_valid = 0, is_active = 0 WHERE expires_at < NOW() AND is_valid = 1");
+
+
 $cateNum = 2;
-$pageTitle = "失效優惠券列表";
+$pageTitle = "已失效優惠券列表";
 
 // 查詢參數
 $search = $_GET["search"] ?? "";
@@ -51,10 +57,27 @@ $whereSQL = implode(" AND ", $where);
 
 if (isset($_GET["toggle_id"])) {
     $toggleId = $_GET["toggle_id"];
-    $pdo->prepare("UPDATE coupon SET is_active = NOT is_active WHERE id = ?")->execute([$toggleId]);
+
+    // 只允許有效（is_valid = 1）且未過期的優惠券才能切換狀態
+    $stmtCheck = $pdo->prepare("SELECT * FROM coupon WHERE id = ? AND is_valid = 1 AND expires_at > NOW()");
+    $stmtCheck->execute([$toggleId]);
+    $validRow = $stmtCheck->fetch();
+    if ($validRow) {
+        $pdo->prepare("UPDATE coupon SET is_active = NOT is_active WHERE id = ?")->execute([$toggleId]);
+    }
+
     header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
     exit;
 }
+
+if (isset($_GET["restore_id"])) {
+    $restoreId = $_GET["restore_id"];
+    $stmt = $pdo->prepare("UPDATE coupon SET is_valid = 1, updated_at = NOW() WHERE id = ?");
+    $stmt->execute([$restoreId]);
+    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+    exit;
+}
+
 
 $perPage = 12;
 $page = max(1, intval($_GET["page"] ?? 1));
@@ -118,174 +141,8 @@ function sortIcon($field, $orderBy, $orderDir)
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="./indexList.css">
 
-    <style>
-        body {
-            background-color: #fff;
-        }
-
-        h1 {
-            color: #3F72AF;
-        }
-
-        .msg {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            flex-wrap: wrap;
-            overflow-x: hidden;
-        }
-
-        .msg-header {
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            background-color: #3F72AF;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 0.95rem;
-        }
-
-        .msg-header a i {
-            margin-left: 5px;
-        }
-
-        /* 欄位寬度（編號、優惠碼、折扣、低消 窄一點） */
-        .id,
-        .msg-header .id {
-            flex: 0 0 50px;
-            text-align: center;
-        }
-
-        .code,
-        .msg-header .code,
-        .value,
-        .msg-header .value,
-        .min,
-        .msg-header .min {
-            flex: 0 0 70px;
-            text-align: center;
-        }
-
-        .desc,
-        .msg-header .desc {
-            flex: 0 0 140px;
-            padding: 0 5px;
-            text-align: center;
-        }
-
-        .type,
-        .msg-header .type {
-            flex: 0 0 80px;
-            text-align: center;
-        }
-
-        .start_at,
-        .msg-header .start_at,
-        .expires_at,
-        .msg-header .expires_at,
-        .create_at,
-        .msg-header .create_at,
-        .updated_at,
-        .msg-header .updated_at {
-            flex: 0 0 140px;
-            text-align: center;
-        }
-
-        .is_active,
-        .msg-header .is_active {
-            flex: 0 0 100px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .actions,
-        .msg-header .actions {
-            flex: 0 0 120px;
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .actions .btn,
-        .is_active .btn {
-            padding: 3px 8px;
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
-
-        .create_at,
-        .msg-header .create_at,
-        .updated_at,
-        .msg-header .updated_at {
-            flex: 0 0 140px;
-            text-align: center;
-            overflow-wrap: break-word;
-            white-space: normal;
-        }
-
-
-
-        .btn {
-            margin-right: 0;
-        }
-
-        .btn-add,
-        .btn-cha,
-        .btn-del {
-            background-color: #3F72AF;
-            color: white;
-            transition: background-color 0.2s;
-        }
-
-        .btn-add:hover,
-        .btn-cha:hover,
-        .btn-del:hover {
-            background-color: #89b9f4;
-            color: white;
-        }
-
-        .btn-toggle-on {
-            background-color: #ffd66e;
-            color: black;
-            transition: background-color 0.2s, box-shadow 0.2s;
-        }
-
-        .btn-toggle-on:hover {
-            background-color: #ffd66e;
-        }
-
-        .btn-toggle-off {
-            background-color: #6c757d;
-            color: white;
-            border: 1px solid #545b62;
-            transition: background-color 0.2s, box-shadow 0.2s;
-        }
-
-        .btn-toggle-off:hover {
-            background-color: #868e96;
-        }
-
-        .pagination .page-item.active .page-link {
-            background-color: rgb(200, 225, 255);
-            border-color: #3F72AF;
-        }
-
-        .pagination .page-link {
-            color: #3F72AF;
-        }
-
-        .pagination .page-link:hover {
-            background-color: #DBE2EF;
-        }
-    </style>
 </head>
 
 <body>
@@ -297,10 +154,6 @@ function sortIcon($field, $orderBy, $orderDir)
                 <div class="container my-4">
                     <div class="my-2 d-flex">
                         <span class="me-auto">目前共 <?= $totalCount ?> 筆資料</span>
-                        <a class="btn btn-add btn-sm" href="./add.php">新增優惠券</a>
-                    </div>
-                    <div class="d-flex justify-content-end mb-3">
-                        <a href="index.php" class="btn btn-outline-secondary btn-sm">切換卡片模式</a>
                     </div>
 
                     <!-- 搜尋表單 -->
@@ -447,7 +300,7 @@ function sortIcon($field, $orderBy, $orderDir)
                             </div>
                             <div class="actions">
                                 <a href="./update.php?id=<?= $row["id"] ?>" class="btn btn-sm btn-cha">修改</a>
-                                <a href="./doDelete.php?id=<?= $row["id"] ?>" class="btn btn-sm btn-del">刪除</a>
+                                <a href="?restore_id=<?= $row["id"] ?>" class="btn btn-sm btn-del">重新上架</a>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -484,7 +337,7 @@ function sortIcon($field, $orderBy, $orderDir)
                 <script>
                     document.addEventListener("click", function (e) {
                         if (e.target && e.target.classList.contains("btn-del")) {
-                            if (confirm("確定要刪除嗎?")) {
+                            if (confirm("確定要重新上架嗎?")) {
                                 window.location.href = `./doDelete.php?id=${e.target.dataset.id}`;
                             }
                         }

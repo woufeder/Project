@@ -1,0 +1,84 @@
+/* coupon/index.css */
+body {
+    background-color: #DBE2EF;
+}
+
+.coupon-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.btn-del {
+    background: rgb(225, 77, 64);
+    color: rgb(255, 219, 221);
+}
+
+.btn-del:hover {
+    background: rgb(255, 110, 96);
+    color: #fff;
+}
+
+.btn-cha {
+    background: rgb(154, 200, 255);
+    color: #3F72AF;
+}
+
+.btn-cha:hover {
+    background: #3F72AF;
+    color: #fff;
+}
+
+.pagination .page-item.active .page-link {
+    background: hsl(213, 100.00%, 89.20%);
+    border-color: #3F72AF;
+}
+
+.pagination .page-link {
+    color: #3F72AF;
+}
+
+.coupon-card {
+    position: relative;
+    color: #fff;
+}
+
+.coupon-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.coupon-card>div {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-add {
+    background: #3F72AF;
+    color: #fff;
+}
+
+.btn-toggle-on {
+    background: #f1c731;
+    color: #000;
+}
+
+.toggle-btn.btn-toggle-on:hover {
+    background: #f1ac3e;
+    /* 或你原本的底色 */
+}
+
+.toggle-btn.btn-toggle-off:hover {
+    background: #85919c;
+    /* 原本灰色底 */
+}
+
+.btn-toggle-off {
+    background: #737b82;
+    color: #fff;
+    border: 1px solid #545b62;
+}

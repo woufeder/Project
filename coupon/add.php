@@ -2,6 +2,7 @@
 include "../template_btn.php";
 include "../vars.php";
 require_once "./connect.php";
+require_once "./Utilities.php";
 $cateNum = 2;
 $pageTitle = "{$cate_ary[$cateNum]}列表";
 
@@ -122,14 +123,27 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                                 <input required name="min" type="number" step="0.01" class="form-control" id="min">
                             </div>
 
-                            <div class="mb-3">
-                                <label for="start_at" class="form-label">開始時間</label>
-                                <input required name="start_at" type="date" class="form-control" id="start_at">
+                            <div class="row mb-3 align-items-end">
+                                <div class="col">
+                                    <label class="form-label">開始日期</label>
+                                    <input type="date" name="start_at" value="<?= substr($row["start_at"], 0, 10) ?>"
+                                        class="form-control" required>
+                                </div>
+                                <div class="col-auto">
+                                    <span class="fw-bold">~</span>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label">結束日期</label>
+                                    <input type="date" name="expires_at"
+                                        value="<?= substr($row["expires_at"], 0, 10) ?>" class="form-control" required>
+                                </div>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="expires_at" class="form-label">結束時間</label>
-                                <input required name="expires_at" type="date" class="form-control" id="expires_at">
+                            <!-- 是否啟用 -->
+                            <div class="mb-3 form-check form-switch">
+                                <input type="checkbox" class="form-check-input" id="is_active" name="is_active"
+                                    value="1" checked>
+                                <label class="form-check-label" for="is_active">啟用此優惠券</label>
                             </div>
                             <div class="text-end mt-3">
                                 <button type="submit" class="btn btn-info">送出</button>

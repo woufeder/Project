@@ -1,4 +1,5 @@
 <?php
+require_once "./Utilities.php";
 function formatDiscount($type, $value)
 {
   return $type == 1 ? $value . "% OFF" : "折 $" . $value . " 元";
@@ -158,7 +159,7 @@ function formatDiscount($type, $value)
     }
 
     .btn-cha {
-      background-color: #f0ad4e;
+      background-color: rgb(232, 96, 112);
     }
 
     .btn-del {
@@ -171,6 +172,23 @@ function formatDiscount($type, $value)
       font-size: 16px;
       color: rgb(255, 255, 255);
       text-align: right;
+    }
+
+    .toggle-btn {
+      padding: 8px 14px;
+      border-radius: 30px;
+
+    }
+
+
+    .btn-toggle-on i {
+      color: rgb(255, 250, 235);
+      /* 綠色圖示 */
+    }
+
+    .btn-toggle-off i {
+      color: rgb(255, 255, 255);
+      /* 灰色圖示 */
     }
   </style>
 </head>
@@ -210,7 +228,21 @@ function formatDiscount($type, $value)
           </div>
         </div>
         <div class="coupon-center">
+
           <div class="actions">
+            <div class="is_active">
+              <?php
+              // 保留目前的 GET 參數並加上 toggle_id
+              $params = $_GET;
+              $params['toggle_id'] = $row['id'];
+              $toggleUrl = '?' . http_build_query($params);
+              ?>
+              <a href="<?= $toggleUrl ?>"
+                class="btn btn-sm toggle-btn <?= $row["is_active"] ? 'btn-toggle-on' : 'btn-toggle-off' ?>"
+                title="<?= $row["is_active"] ? '點擊可停用' : '點擊可啟用' ?>">
+                <i class="fa-solid <?= $row["is_active"] ? 'fa-toggle-on' : 'fa-toggle-off' ?>"></i>
+              </a>
+            </div>
             <a href="./update.php?id=<?= $row["id"] ?>" class="btn btn-sm btn-cha" title="修改">
               <i class="fas fa-pen"></i>
             </a>
