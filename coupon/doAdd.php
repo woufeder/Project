@@ -10,6 +10,7 @@ $value = $_POST["value"];
 $min = $_POST["min"];
 $start_at = $_POST["start_at"] . " 00:00:00";
 $expires_at = $_POST["expires_at"] . " 23:59:59";
+$is_active = isset($_POST["is_active"]) ? 1 : 0;
 
 // 1. 資料驗證
 if (empty($code)) {
@@ -58,13 +59,13 @@ try {
 
 // 3. 寫入資料
 $sql = "INSERT INTO coupon 
-(code, `desc`, type, value, min, start_at, expires_at)
-VALUES (?, ?, ?, ?, ?, ?, ?)";
+(code, `desc`, type, value, min, start_at, expires_at, is_active)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 
 try {
   $stmt = $pdo->prepare($sql);
-  $stmt->execute([$code, $desc, $type, $value, $min, $start_at, $expires_at]);
+  $stmt->execute([$code, $desc, $type, $value, $min, $start_at, $expires_at, $is_active]);
 } catch (PDOException $e) {
   echo "新增失敗 " . $e->getMessage();
   exit;

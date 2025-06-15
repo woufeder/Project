@@ -63,10 +63,20 @@ $whereSQL = implode(" AND ", $where);
 
 // 切換啟用
 if (isset($_GET["toggle_id"])) {
+    // 執行啟用/停用的邏輯...
     $toggleId = $_GET["toggle_id"];
-    $pdo->prepare("UPDATE coupon SET is_active = NOT is_active WHERE id = ?")
-        ->execute([$toggleId]);
-    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+    $stmtCheck = $pdo->prepare("SELECT * FROM coupon WHERE id = ? AND is_valid = 1 AND expires_at > NOW()");
+    $stmtCheck->execute([$toggleId]);
+    $validRow = $stmtCheck->fetch();
+    if ($validRow) {
+        $pdo->prepare("UPDATE coupon SET is_active = NOT is_active WHERE id = ?")->execute([$toggleId]);
+    }
+
+    // ✅ 重導回原本的搜尋狀態（移除 toggle_id，但保留其他參數）
+    $params = $_GET;
+    unset($params["toggle_id"]);
+    $redirectUrl = basename($_SERVER["PHP_SELF"]) . "?" . http_build_query($params);
+    header("Location: $redirectUrl");
     exit;
 }
 
@@ -83,8 +93,8 @@ $descLabel = "從大到小";
 switch ($orderBy) {
     case "start_at":
     case "expires_at":
-        $ascLabel = "由晚到早";
-        $descLabel = "由早到晚";
+        $ascLabel = "由早到晚";
+        $descLabel = "由晚到早";
         break;
     case "value":
     case "min":
@@ -140,7 +150,7 @@ $totalPage = ceil($totalCount / $perPage);
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="./index.css">
-    
+
 </head>
 
 <body>
@@ -150,54 +160,62 @@ $totalPage = ceil($totalCount / $perPage);
             <?php include(__DIR__ . "/../template_header.php"); ?>
             <main>
                 <div class="container my-4">
-                    <div class="my-2 d-flex">
-                        <span class="me-auto">目前共 <?= $totalCount ?> 筆資料</span>
-                        <a class="btn btn-add btn-sm" href="./add.php">新增優惠券</a>
+                    <div class="my-2 d-flex align-items-center">
+                        <span class="text-white bg-primary px-3 py-1 rounded-pill shadow-sm">
+                            <i class="fa-solid fa-list me-1"></i>
+                            共 <?= $totalCount ?> 筆資料
+                        </span>
+                        <div class="ms-auto">
+                            <a class="btn btn-add btn-sm" href="./add.php">新增優惠券</a>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-end mb-3">
                         <a href="indexList.php" class="btn btn-outline-secondary btn-sm">切換列表模式</a>
                     </div>
 
-                    <!-- 搜尋表單 -->
-                    <form class="row g-2 mb-3 justify-content-end">
-                        <div class="col-auto">
-                            <input type="text" name="search" value="<?= htmlspecialchars($search) ?>"
-                                class="form-control form-control-sm" placeholder="搜尋關鍵字">
-                        </div>
-                        <div class="col-auto">
-                            <select name="qType" class="form-select form-select-sm">
-                                <option value="">所有欄位</option>
-                                <option value="desc" <?= $searchType === "desc" ? "selected" : "" ?>>優惠券名字</option>
-                                <option value="code" <?= $searchType === "code" ? "selected" : "" ?>>優惠碼</option>
-                                <option value="value" <?= $searchType === "value" ? "selected" : "" ?>>折扣</option>
-                                <option value="min" <?= $searchType === "min" ? "selected" : "" ?>>最低消費</option>
-                            </select>
-                        </div>
-                        <div class="col-auto">
-                            <select name="typeFilter" class="form-select form-select-sm">
-                                <option value="">所有類型</option>
-                                <option value="1" <?= $typeFilter === "1" ? "selected" : "" ?>>百分比</option>
-                                <option value="0" <?= $typeFilter === "0" ? "selected" : "" ?>>固定金額</option>
-                            </select>
-                        </div>
-                        <div class="col-auto">
-                            <select name="activeFilter" class="form-select form-select-sm">
-                                <option value="">全部狀態</option>
-                                <option value="1" <?= $activeFilter === "1" ? "selected" : "" ?>>啟用中</option>
-                                <option value="0" <?= $activeFilter === "0" ? "selected" : "" ?>>未啟用</option>
-                            </select>
-                        </div>
-                        <div class="col-auto">
+                    <!-- 整齊橫排搜尋列 -->
+                    <form class="d-flex flex-wrap gap-2 align-items-center mb-3 justify-content-end">
+
+                        <!-- 關鍵字搜尋 -->
+                        <input type="text" name="search" value="<?= htmlspecialchars($search) ?>"
+                            class="form-control form-control-sm" style="width: 150px;" placeholder="搜尋關鍵字">
+
+                        <!-- 搜尋欄位選擇 -->
+                        <select name="qType" class="form-select form-select-sm" style="width: 120px;">
+                            <option value="">所有欄位</option>
+                            <option value="desc" <?= $searchType === "desc" ? "selected" : "" ?>>優惠券名字</option>
+                            <option value="code" <?= $searchType === "code" ? "selected" : "" ?>>優惠碼</option>
+                            <option value="value" <?= $searchType === "value" ? "selected" : "" ?>>折扣</option>
+                            <option value="min" <?= $searchType === "min" ? "selected" : "" ?>>最低消費</option>
+                        </select>
+
+                        <!-- 類型 -->
+                        <select name="typeFilter" class="form-select form-select-sm" style="width: 110px;">
+                            <option value="">所有類型</option>
+                            <option value="1" <?= $typeFilter === "1" ? "selected" : "" ?>>百分比</option>
+                            <option value="0" <?= $typeFilter === "0" ? "selected" : "" ?>>固定金額</option>
+                        </select>
+
+                        <!-- 狀態 -->
+                        <select name="activeFilter" class="form-select form-select-sm" style="width: 110px;">
+                            <option value="">全部狀態</option>
+                            <option value="1" <?= $activeFilter === "1" ? "selected" : "" ?>>啟用中</option>
+                            <option value="0" <?= $activeFilter === "0" ? "selected" : "" ?>>未啟用</option>
+                        </select>
+
+                        <!-- 時間區間 -->
+                        <div class="d-flex align-items-center" style="gap: 5px;">
+                            <label for="date1" class="form-label mb-0 me-1">時間區間</label>
                             <input type="date" name="date1" id="date1" value="<?= $date1 ?>"
-                                class="form-control form-control-sm">
-                        </div>
-                        <div class="col-auto">
+                                class="form-control form-control-sm" style="width: 135px;">
+                            <span>~</span>
                             <input type="date" name="date2" id="date2" value="<?= $date2 ?>"
-                                class="form-control form-control-sm">
+                                class="form-control form-control-sm" style="width: 135px;">
                         </div>
-                        <div class="col-auto">
-                            <button class="btn btn-sm btn-primary">搜尋</button>
-                        </div>
+
+                        <!-- 搜尋按鈕 -->
+                        <button class="btn btn-sm btn-primary">搜尋</button>
+
                         <div class="col-auto">
                             <select name="orderBy" class="form-select form-select-sm" onchange="this.form.submit()">
                                 <option value="id" <?= $orderBy === "id" ? "selected" : "" ?>>預設排序</option>
@@ -215,6 +233,12 @@ $totalPage = ceil($totalCount / $perPage);
                                 <option value="ASC" <?= $orderDir === "ASC" ? "selected" : "" ?>><?= $ascLabel ?></option>
                             </select>
                         </div>
+                        <!-- 清除排序 -->
+                        <?php
+                        $cleanSortUrl = strtok($_SERVER["REQUEST_URI"], '?') . '?' . http_build_query(array_diff_key($_GET, ['orderBy' => '', 'orderDir' => '']));
+                        ?>
+                        <a href="<?= $cleanSortUrl ?>" class="btn btn-sm btn-outline-danger">清除排序</a>
+
                     </form>
 
                     <!-- 無資料顯示 -->

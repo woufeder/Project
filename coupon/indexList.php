@@ -17,6 +17,7 @@ $activeFilter = $_GET["activeFilter"] ?? "";
 $orderBy = $_GET["orderBy"] ?? "id";
 $orderDir = strtoupper($_GET["orderDir"] ?? "DESC");
 
+
 $allowedOrderFields = ["id", "type", "value", "min", "start_at", "expires_at", "created_at", "updated_at", "is_active"];
 if (!in_array($orderBy, $allowedOrderFields))
     $orderBy = "id";
@@ -52,9 +53,21 @@ if ($activeFilter !== "") {
 $whereSQL = implode(" AND ", $where);
 
 if (isset($_GET["toggle_id"])) {
+    // 執行啟用/停用的邏輯...
     $toggleId = $_GET["toggle_id"];
-    $pdo->prepare("UPDATE coupon SET is_active = NOT is_active WHERE id = ?")->execute([$toggleId]);
-    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+
+    $stmtCheck = $pdo->prepare("SELECT * FROM coupon WHERE id = ? AND is_valid = 1 AND expires_at > NOW()");
+    $stmtCheck->execute([$toggleId]);
+    $validRow = $stmtCheck->fetch();
+    if ($validRow) {
+        $pdo->prepare("UPDATE coupon SET is_active = NOT is_active WHERE id = ?")->execute([$toggleId]);
+    }
+
+    // ✅ 重導回原本的搜尋狀態（移除 toggle_id，但保留其他參數）
+    $params = $_GET;
+    unset($params["toggle_id"]);
+    $redirectUrl = basename($_SERVER["PHP_SELF"]) . "?" . http_build_query($params);
+    header("Location: $redirectUrl");
     exit;
 }
 
@@ -139,55 +152,54 @@ function sortIcon($field, $orderBy, $orderDir)
                         <a href="index.php" class="btn btn-outline-secondary btn-sm">切換卡片模式</a>
                     </div>
 
-                    <!-- 搜尋表單 -->
-                    <form class="row g-2 mb-3 justify-content-end">
-                        <div class="col-auto">
-                            <input type="text" name="search" value="<?= htmlspecialchars($search) ?>"
-                                class="form-control form-control-sm" placeholder="搜尋關鍵字">
-                        </div>
-                        <div class="col-auto">
-                            <select name="qType" class="form-select form-select-sm">
-                                <option value="">所有欄位</option>
-                                <option value="desc" <?= $searchType === "desc" ? "selected" : "" ?>>優惠券名字</option>
-                                <option value="code" <?= $searchType === "code" ? "selected" : "" ?>>優惠碼</option>
-                                <option value="value" <?= $searchType === "value" ? "selected" : "" ?>>折扣</option>
-                                <option value="min" <?= $searchType === "min" ? "selected" : "" ?>>最低消費</option>
-                            </select>
-                        </div>
-                        <div class="col-auto">
-                            <select name="typeFilter" class="form-select form-select-sm">
-                                <option value="">所有類型</option>
-                                <option value="1" <?= $typeFilter === "1" ? "selected" : "" ?>>百分比</option>
-                                <option value="0" <?= $typeFilter === "0" ? "selected" : "" ?>>固定金額</option>
-                            </select>
-                        </div>
-                        <div class="col-auto">
-                            <select name="activeFilter" class="form-select form-select-sm">
-                                <option value="">全部狀態</option>
-                                <option value="1" <?= $activeFilter === "1" ? "selected" : "" ?>>啟用中</option>
-                                <option value="0" <?= $activeFilter === "0" ? "selected" : "" ?>>未啟用</option>
-                            </select>
-                        </div>
-                        <div class="col-auto">
+                    <!-- 整齊橫排搜尋列 -->
+                    <form class="d-flex flex-wrap gap-2 align-items-center mb-3 justify-content-end">
+
+                        <!-- 關鍵字搜尋 -->
+                        <input type="text" name="search" value="<?= htmlspecialchars($search) ?>"
+                            class="form-control form-control-sm" style="width: 150px;" placeholder="搜尋關鍵字">
+
+                        <!-- 搜尋欄位選擇 -->
+                        <select name="qType" class="form-select form-select-sm" style="width: 120px;">
+                            <option value="">所有欄位</option>
+                            <option value="desc" <?= $searchType === "desc" ? "selected" : "" ?>>優惠券名字</option>
+                            <option value="code" <?= $searchType === "code" ? "selected" : "" ?>>優惠碼</option>
+                            <option value="value" <?= $searchType === "value" ? "selected" : "" ?>>折扣</option>
+                            <option value="min" <?= $searchType === "min" ? "selected" : "" ?>>最低消費</option>
+                        </select>
+
+                        <!-- 類型 -->
+                        <select name="typeFilter" class="form-select form-select-sm" style="width: 110px;">
+                            <option value="">所有類型</option>
+                            <option value="1" <?= $typeFilter === "1" ? "selected" : "" ?>>百分比</option>
+                            <option value="0" <?= $typeFilter === "0" ? "selected" : "" ?>>固定金額</option>
+                        </select>
+
+                        <!-- 狀態 -->
+                        <select name="activeFilter" class="form-select form-select-sm" style="width: 110px;">
+                            <option value="">全部狀態</option>
+                            <option value="1" <?= $activeFilter === "1" ? "selected" : "" ?>>啟用中</option>
+                            <option value="0" <?= $activeFilter === "0" ? "selected" : "" ?>>未啟用</option>
+                        </select>
+
+                        <!-- 時間區間 -->
+                        <div class="d-flex align-items-center" style="gap: 5px;">
+                            <label for="date1" class="form-label mb-0 me-1">時間區間</label>
                             <input type="date" name="date1" id="date1" value="<?= $date1 ?>"
-                                class="form-control form-control-sm">
-                        </div>
-                        <div class="col-auto">
+                                class="form-control form-control-sm" style="width: 135px;">
+                            <span>~</span>
                             <input type="date" name="date2" id="date2" value="<?= $date2 ?>"
-                                class="form-control form-control-sm">
+                                class="form-control form-control-sm" style="width: 135px;">
                         </div>
-                        <div class="col-auto">
-                            <button class="btn btn-sm btn-primary">搜尋</button>
-                        </div>
-                        <div class="col-auto">
-                            <?php
-                            // 把 $_GET 中的 orderBy 和 orderDir 移除
-                            $cleanSortUrl = strtok($_SERVER["REQUEST_URI"], '?') . '?' . http_build_query(array_diff_key($_GET, ['orderBy' => '', 'orderDir' => '']));
-                            ?>
-                            <a href="<?= $cleanSortUrl ?>" class="btn btn-sm btn-outline-danger">
-                                清除排序
-                            </a>
-                        </div>
+
+                        <!-- 搜尋按鈕 -->
+                        <button class="btn btn-sm btn-primary">搜尋</button>
+
+                        <!-- 清除排序 -->
+                        <?php
+                        $cleanSortUrl = strtok($_SERVER["REQUEST_URI"], '?') . '?' . http_build_query(array_diff_key($_GET, ['orderBy' => '', 'orderDir' => '']));
+                        ?>
+                        <a href="<?= $cleanSortUrl ?>" class="btn btn-sm btn-outline-danger">清除排序</a>
 
                     </form>
 
@@ -276,7 +288,7 @@ function sortIcon($field, $orderBy, $orderDir)
                                 <?= date("H:i:s", strtotime($row["updated_at"])) ?>
                             </div>
                             <div class="is_active">
-                                <a href="?toggle_id=<?= $row["id"] ?>"
+                                <a href="?<?= http_build_query(array_merge($_GET, ['toggle_id' => $row["id"]])) ?>"
                                     class="btn btn-sm <?= $row["is_active"] ? 'btn-toggle-on' : 'btn-toggle-off' ?>">
                                     <?= $row["is_active"] ? '啟用中' : '未啟用' ?>
                                 </a>
