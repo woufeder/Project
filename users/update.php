@@ -1,11 +1,7 @@
 <?php
-session_start();
- if(!isset($_SESSION["user"])){
-   header("location: ./login.php");
- }
- 
 require_once "./connect.php";
 require_once "./utilities.php";
+include "../vars.php";
 
 if (!isset($_GET["id"])) {
     alertGoTo("請從正常管道進入", "./index.php");
@@ -55,70 +51,9 @@ try {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="./btn.css">
-    <style>
-        :root {
-            --color-bg: #ffffff;
-            --color-surface: #F9F7F7;
-            --color-border: #DBE2EF;
-
-            --color-primary: #3F72AF;
-            --color-primary-light: #5B8BD6;
-
-            --color-accent: #E1B822;
-
-            --color-text: #2c2c2c;
-            --color-text-secondary: #64748b;
-            --color-text-inverse: #1e293b;
-
-            --box-shadow: rgba(63, 114, 175, 0.2);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            font-family: "Noto Sans TC", sans-serif;
-            background: linear-gradient(to top right, rgb(141, 155, 179) 0%, var(--color-primary-light) 100%);
-            background-repeat: no-repeat;
-            overflow-x: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            background-color: var(--color-border);
-
-        }
-
-        .avatar-wrapper {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: rgb(186, 186, 187);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            margin: auto;
-        }
-
-        .avatar-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/update.css">
 </head>
 
 <body>

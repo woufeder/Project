@@ -1,0 +1,71 @@
+body {
+  background-color: var(--color-border);
+}
+
+.primary {
+  color: var(--color-primary);
+}
+
+.header {
+  background-color: var(--color-primary);
+}
+
+.id {
+  width: 70px;
+}
+
+.img {
+  width: 100px;
+}
+
+.img-thumbnail {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgb(186, 186, 187);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.img-thumbnail img {
+  width: 150%;
+  height: 150%;
+  object-fit: cover;
+}
+
+.name {
+  width: 200px;
+}
+
+.account {
+  flex: 1;
+}
+
+.email {
+  flex: 1;
+}
+
+.time {
+  width: 220px;
+}
+
+.edit {
+  width: 120px;
+}
+
+.table-row:hover {
+  background-color: #f1f5f9;
+  transition: background-color 0.2s;
+}
+
+.form-select {
+  max-width: 80px;
+  padding-right: 1rem;
+}
+
+#btn-reset {
+  padding-left: 10px;
+  padding-right: 10px;
+}

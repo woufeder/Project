@@ -1,16 +1,10 @@
 <?php
 // php -S localhost:8888
 
-session_start();
-
 require_once "./connect.php";
 require_once "./utilities.php";
 include "../template_btn.php";
 include "../vars.php";
-
-if (!isset($_SESSION["user"])) {
-    alertGoTo("請先登入會員", "./login.php");
-}
 
 //分頁
 $perPage = 15;
@@ -119,103 +113,8 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="./btn.css">
-    <style>
-        :root {
-            --color-bg: #ffffff;
-            --color-surface: #F9F7F7;
-            --color-border: #DBE2EF;
-
-            --color-primary: #3F72AF;
-            --color-primary-light: #5B8BD6;
-
-            --color-accent: #E1B822;
-
-            --color-text: #2c2c2c;
-            --color-text-secondary: #64748b;
-            --color-text-inverse: #1e293b;
-
-            --box-shadow: rgba(63, 114, 175, 0.2);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--color-border);
-        }
-
-        .primary {
-            color: var(--color-primary);
-        }
-
-        .header {
-            background-color: var(--color-primary);
-        }
-
-        .id {
-            width: 70px;
-        }
-
-        .img {
-            width: 100px;
-        }
-
-        .img-thumbnail {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: rgb(186, 186, 187);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .img-thumbnail img {
-            width: 150%;
-            height: 150%;
-            object-fit: cover;
-        }
-
-        .name {
-            width: 200px;
-        }
-
-        .account {
-            flex: 1;
-        }
-
-        .email {
-            flex: 1;
-        }
-
-        .time {
-            width: 220px;
-        }
-
-        .edit {
-            width: 120px;
-        }
-
-        .table-row:hover {
-            background-color: #f1f5f9;
-            transition: background-color 0.2s;
-        }
-
-        .form-select {
-            max-width: 80px;
-            padding-right: 1rem;
-        }
-
-        #btn-reset {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body>
@@ -225,10 +124,7 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
             <?php include '../template_header.php'; ?>
             <main>
                 <div class="container-fluid">
-                    <div class="d-flex align-items-center">
-                        <h1 class="primary">會員列表</h1>
-                        <div class="ms-5 primary">&laquo; 總共 <?= $totalCount ?> 位會員 &raquo;</div>
-                    </div>
+                    <h6 class="primary">&laquo; 總共 <?= $totalCount ?> 位會員 &raquo;</h6>
 
                     <div class="d-flex justify-content-between align-items-center mt-4">
                         <ul class="pagination">
@@ -313,7 +209,7 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                                 </option>
                             </select>
 
-                            <input name="search" type="text" class="form-control" placeholder="請輸入關鍵字"
+                            <input name="search" type="text" class="form-control" id="keyword" placeholder="請輸入關鍵字"
                                 value="<?= $_GET["search"] ?? "" ?>" data-default-name="search">
                             <button class="btn btn-b" type="submit"><i
                                     class="fa-solid fa-magnifying-glass"></i></button>
@@ -490,6 +386,16 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
             window.location.href = './index.php';
         });
 
+        // 關鍵字未輸入判斷
+        form.addEventListener("submit", function (e) {
+            const keyword = document.querySelector("#keyword").value.trim();
+            const field = document.querySelector(".form-select").value;
+
+            if (keyword !== "" && field === "") {
+                e.preventDefault();
+                alert("請先選擇欄位");
+            }
+        });
     </script>
 </body>
 

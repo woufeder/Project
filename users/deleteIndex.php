@@ -1,17 +1,12 @@
 <?php
-session_start();
-
+// 增加 vars 分頁名稱
 require_once "./connect.php";
 require_once "./utilities.php";
 include "../template_btn.php";
 include "../vars.php";
 
-if (!isset($_SESSION["user"])) {
-    alertGoTo("請先登入會員", "./login.php");
-}
-
 //分頁
-$perPage = 15;
+$perPage = 10;
 $page = intval($_GET["page"] ?? 1);
 // 每頁起始點第?筆
 $pageStart = ($page - 1) * $perPage;
@@ -117,103 +112,8 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="./btn.css">
-    <style>
-        :root {
-            --color-bg: #ffffff;
-            --color-surface: #F9F7F7;
-            --color-border: #DBE2EF;
-
-            --color-primary: #3F72AF;
-            --color-primary-light: #5B8BD6;
-
-            --color-accent: #E1B822;
-
-            --color-text: #2c2c2c;
-            --color-text-secondary: #64748b;
-            --color-text-inverse: #1e293b;
-
-            --box-shadow: rgba(63, 114, 175, 0.2);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--color-border);
-        }
-
-        .primary {
-            color: var(--color-primary);
-        }
-
-        .header {
-            background-color: var(--color-primary);
-        }
-
-        .id {
-            width: 70px;
-        }
-
-        .img {
-            width: 100px;
-        }
-
-        .img-thumbnail {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: rgb(186, 186, 187);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .img-thumbnail img {
-            width: 150%;
-            height: 150%;
-            object-fit: cover;
-        }
-
-        .name {
-            width: 200px;
-        }
-
-        .account {
-            flex: 1;
-        }
-
-        .email {
-            flex: 1;
-        }
-
-        .time {
-            width: 220px;
-        }
-
-        .edit {
-            width: 120px;
-        }
-
-        .table-row:hover {
-            background-color: #f1f5f9;
-            transition: background-color 0.2s;
-        }
-
-        .form-select {
-            max-width: 80px;
-            padding-right: 1rem;
-        }
-
-        #btn-reset {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/deleteIndex.css">
 </head>
 
 <body>
@@ -223,10 +123,7 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
             <?php include '../template_header.php'; ?>
             <main>
                 <div class="container-fluid">
-                    <div class="d-flex align-items-center">
-                        <h1 class="primary">停權會員列表</h1>
-                        <div class="ms-5 primary">&laquo; 總共 <?= $totalCount ?> 位停權會員 &raquo;</div>
-                    </div>
+                    <h6 class="primary">&laquo; 總共 <?= $totalCount ?> 位會員 &raquo;</h6>
 
                     <div class="d-flex justify-content-between align-items-center mt-4">
                         <ul class="pagination">
@@ -287,7 +184,6 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                                 <a class="page-link" href="<?= $isLastPage ? '#' : $lastPageLink ?>">末頁</a>
                             </li>
                         </ul>
-                        <a class="btn btn-b btn-add" href="./add.php"><i class="fa-solid fa-plus"></i></a>
                     </div>
 
                     <!-- 表單裡的資料 變成網址上的參數 -->
@@ -311,7 +207,7 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                                 </option>
                             </select>
 
-                            <input name="search" type="text" class="form-control" placeholder="請輸入關鍵字"
+                            <input name="search" type="text" class="form-control" id="keyword" placeholder="請輸入關鍵字"
                                 value="<?= $_GET["search"] ?? "" ?>" data-default-name="search">
                             <button class="btn btn-b" type="submit"><i
                                     class="fa-solid fa-magnifying-glass"></i></button>
@@ -365,12 +261,8 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                                 <div class="email"><?= $row["email"] ?></div>
                                 <div class="time"><?= $row["create_at"] ?></div>
                                 <div class="edit">
-                                    <a class="btn btn-sm btn-b" href="./view.php?id=<?= $row["id"] ?>"><i
-                                            class="fas fa-eye"></i></a>
-                                    <a class="btn btn-sm btn-y" href="./update.php?id=<?= $row["id"] ?>"><i
-                                            class="fas fa-pen"></i></a>
-                                    <button class="btn btn-sm btn-del btn-d" data-id="<?= $row["id"] ?>"><i
-                                            class="fas fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-back btn-d" data-id="<?= $row["id"] ?>"><i
+                                            class="fa-solid fa-reply-all"></i></button>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -442,16 +334,16 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous">
         </script>
-    <!-- 刪除功能 -->
+    <!-- 回復功能 -->
     <script>
-        const btnDels = document.querySelectorAll(".btn-del");
-        btnDels.forEach((btn) => {
+        const btnBacks = document.querySelectorAll(".btn-back");
+        btnBacks.forEach((btn) => {
             btn.addEventListener("click", doConfirm);
         });
 
         function doConfirm(e) {
             const btn = e.target;
-            if (window.confirm("是否確定解除停權該會員?")) {
+            if (window.confirm("是否確定要解除停權該會員?")) {
                 window.location.href = `./undoDelete.php?id=${btn.dataset.id}`;
             }
         }
@@ -488,6 +380,16 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
             window.location.href = './deleteIndex.php';
         });
 
+        // 關鍵字未輸入判斷
+        form.addEventListener("submit", function (e) {
+            const keyword = document.querySelector("#keyword").value.trim();
+            const field = document.querySelector(".form-select").value;
+
+            if (keyword !== "" && field === "") {
+                e.preventDefault();
+                alert("請先選擇欄位");
+            }
+        });
     </script>
 </body>
 
