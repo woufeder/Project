@@ -1,7 +1,7 @@
 <?php // 還原已刪除文章處理
-require_once "./tools/db.php";
-require_once "./tools/utilities.php";
-$pdo = getPDO();
+require_once "./db.php";
+require_once "./utilities.php";
+
 
 // 還原已刪除的文章（is_deleted 設為 0）
 if (!isset($_GET["id"])) {

@@ -317,9 +317,9 @@ $totalPage = ceil($totalCount / $perPage);
 											<p><?= $row["price"] ?>元</p>
 										</div>
 										<div class="control">
-											<button class="btn btn-sm btn-look" data-id="<?= $row["id"] ?>">
+											<a class="btn btn-sm btn-look" href="./look.php?id=<?= $row["id"] ?>">
 												<?= $btnLook ?>
-											</button>
+											</a>
 											<a class="btn btn-sm btn-update" href="./update.php?id=<?= $row["id"] ?>">
 												<?= $btnUpdate ?>
 											</a>

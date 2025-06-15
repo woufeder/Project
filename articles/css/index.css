@@ -1,30 +1,42 @@
+/*
+  全域設定：所有元素採用 border-box 盒模型
+*/
 * {
   box-sizing: border-box;
 }
 
+/*
+  CSS 變數：定義全站顏色、陰影等主題色彩
+*/
 :root {
-  --color-bg: #ffffff;
-  --color-surface: #F9F7F7;
-  --color-border: #DBE2EF;
+  --color-bg: #ffffff; /* 背景色 */
+  --color-surface: #F9F7F7; /* 表面色 */
+  --color-border: #DBE2EF; /* 邊框色 */
 
-  --color-primary: #3F72AF;
-  --color-primary-light: #5B8BD6;
+  --color-primary: #3F72AF; /* 主色 */
+  --color-primary-light: #5B8BD6; /* 主色-亮 */
 
-  --color-accent: #E1B822;
+  --color-accent: #E1B822; /* 強調色 */
 
-  --color-text: #2c2c2c;
-  --color-text-secondary: #64748b;
-  --color-text-inverse: #1e293b;
+  --color-text: #2c2c2c; /* 主要文字色 */
+  --color-text-secondary: #64748b; /* 次要文字色 */
+  --color-text-inverse: #1e293b; /* 反色文字 */
 
-  --box-shadow: rgba(63, 114, 175, 0.2);
+  --box-shadow: rgba(63, 114, 175, 0.2); /* 陰影色 */
 }
 
+/*
+  網頁 body 主要字型與橫向捲軸隱藏
+*/
 body {
   font-family: "Noto Sans TC", sans-serif;
   /* background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-surface) 100%); */
   overflow-x: hidden;
 }
 
+/*
+  文章列表區塊外框
+*/
 .list-area {
   background-color: var(--color-bg);
   border-radius: 5px;
@@ -32,12 +44,18 @@ body {
   border-radius: 3px;
 }
 
+/*
+  文章列表主要內容區塊
+*/
 .list {
   border-radius: 3px;
   border: 1px solid var(--color-border);
   box-shadow: 0 0 3px 3px var(--box-shadow);
 }
 
+/*
+  列表標題列（表頭）
+*/
 .list-head {
   display: flex;
   background-color: var(--color-primary);
@@ -46,87 +64,68 @@ body {
   padding: 0.5rem 0;
   border-radius: 3px 3px 0 0;
 
+  /* 標題欄位分隔線 */
   div {
     border-left: 1px dashed var(--color-bg);
     padding-left: 10px;
-
+    /* 第一個不顯示分隔線 */
     &:first-child {
       border-left: none;
     }
   }
-
+  /* 標題文字樣式 */
   p {
     font-size: 0.9rem;
     padding: 0;
     margin: 0;
   }
-
-
 }
 
+/*
+  列表每一列（內容列）
+*/
 .list-row {
   display: flex;
   background-color: var(--color-surface);
   color: var(--color-bg);
   margin-bottom: 0;
   padding: 0.5rem 0;
-
+  /* 偶數列背景色不同 */
   &:nth-child(even){
     background-color:var(--color-bg);
   }
-
+  /* 欄位分隔線 */
   div {
     border-left: 1px dashed var(--color-border);
     padding-left: 10px;
-
     &:first-child {
       border-left: none;
     }
   }
-
+  /* 內容文字樣式 */
   p {
     font-size: 0.9rem;
     padding: 0;
     margin: 0;
   }
-
 }
 
-
-
-.id {
-  width: 30px;
-  text-align: center;
-  margin-right:  calc(10px + 0.5rem);
-}
-
-.img {
-  width: 80px;
-}
-
-.name {
-  flex: 3;
-}
-
-.price {
-  width: 120px;
-}
-
+/*
+  各欄位寬度設定
+*/
+.id { width: 30px; text-align: center; margin-right:  calc(10px + 0.5rem); }
+.img { width: 80px; }
+.name { flex: 3; }
+.price { width: 120px; }
 .category_main,
 .category_sub,
-.brand {
-  flex: 1;
-}
+.brand { flex: 1; }
+.control { width: 120px; }
+.wh50 { width: 50px; }
 
-.control {
-  width: 120px;
-}
-
-.wh50 {
-  width: 50px;
-}
-
-
+/*
+  刪除、取消按鈕樣式
+*/
 .btn-del,
 .btn-cancel {
   background-color: var(--color-text-inverse);
@@ -134,12 +133,18 @@ body {
   transition: all 0.5s;
 }
 
+/*
+  返回按鈕樣式
+*/
 .btn-return{
 background-color: var(--color-bg);
 border: 1px solid var(--color-primary);
 color: var(--color-primary);
 }
 
+/*
+  新增按鈕樣式
+*/
 .btn-add {
   padding: 0 !important;
   width: 8%;
@@ -148,7 +153,7 @@ color: var(--color-primary);
   border: 2px solid var(--color-primary);
   background-color: var(--color-primary);
   transition: all 0.2s;
-
+  /* 懸停時變色 */
   &:hover {
     background-color: var(--color-accent);
     opacity: 0.8 !important;
@@ -157,7 +162,9 @@ color: var(--color-primary);
   }
 }
 
-
+/*
+  返回按鈕 hover 效果
+*/
 .btn-back{
   padding: 0 !important;
   width: 10%;
@@ -166,7 +173,6 @@ color: var(--color-primary);
   border: 2px solid var(--color-primary);
   background-color: var(--color-primary);
   transition: all 0.2s;
-
   &:hover {
     background-color: var(--color-accent);
     opacity: 0.8 !important;
@@ -175,6 +181,9 @@ color: var(--color-primary);
   }
 }
 
+/*
+  更新、送出按鈕樣式
+*/
 .btn-update,
 .btn-send {
   background-color: var(--color-accent);
@@ -182,12 +191,18 @@ color: var(--color-primary);
   transition: all 0.5s;
 }
 
+/*
+  查看按鈕樣式
+*/
 .btn-look {
   background-color: var(--color-primary);
   color: var(--color-bg);
   transition: all 0.5s;
 }
 
+/*
+  所有按鈕 hover 效果
+*/
 .btn-del:hover,
 .btn-return:hover,
 .btn-cancel:hover,
@@ -199,16 +214,21 @@ color: var(--color-primary);
   color: var(--color-primary);
 }
 
+/*
+  分頁按鈕樣式
+*/
 .page-link {
   background-color: var(--color-border);
   color: var(--color-text-secondary);
 }
 
+/*
+  分頁目前頁面樣式
+*/
 .active>.page-link {
   background-color: var(--color-primary) !important;
   border: none !important;
   color: var(--color-bg);
-
 }
 
 a.sorts {
@@ -216,77 +236,60 @@ a.sorts {
   text-decoration: none;
 }
 
-.wh100px {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-}
+/*
+  圖片、欄位寬高輔助類
+*/
+.wh100px { width: 100px; height: 100px; object-fit: contain; }
+.w500px { width: 500px; }
+.h400px { height: 400px; }
+.h500px { height: 500px; }
+.h650px { height: 550px; }
 
-.w500px {
-  width: 500px;
-}
-
-.h400px {
-  height: 400px;
-}
-
-.h500px {
-  height: 500px;
-}
-
-.h650px {
-  height: 550px;
-}
-
+/*
+  輪播指示點樣式
+*/
 .carousel-indicators [data-bs-target] {
   background-color: black;
 }
-
 .carousel-indicators .active {
   background-color: black;
 }
 
+/*
+  禁止調整大小的輸入框
+*/
 .resize-none {
   resize: none;
 }
 
+/*
+  搜尋按鈕樣式
+*/
 .btn-search {
   background-color: var(--color-primary);
   color: var(--color-bg);
-
   &:hover {
     background-color: var(--color-text-secondary);
     color: var(--color-bg);
   }
 }
 
+/*
+  搜尋區塊（下拉、日期、關鍵字）排版
+*/
 .index-slecter {
   width: 100%;
-
   .input-group {
-    &:nth-child(1) {
-      flex: 0 0 16%;
-    }
-
-    &:nth-child(2) {
-      flex: 0 0 18%;
-    }
-
-    &:nth-child(3) {
-      flex: 0 0 15%;
-    }
-
-    &:nth-child(4) {
-      flex: 0 0 20%;
-    }
+    &:nth-child(1) { flex: 0 0 16%; }
+    &:nth-child(2) { flex: 0 0 18%; }
+    &:nth-child(3) { flex: 0 0 15%; }
+    &:nth-child(4) { flex: 0 0 20%; }
   }
-
   .form-select {
     padding-top: 0;
     padding-bottom: 0;
     padding-right: 0;
   }
-
   span,
   select,
   input,
@@ -297,29 +300,34 @@ a.sorts {
   }
 }
 
+/*
+  每頁顯示筆數下拉選單樣式
+*/
 .select-perpage {
   background-color: transparent !important;
 }
 
+/*
+  分頁區塊外距
+*/
 .pagination {
   margin: 0 !important;
 }
 
-
+/*
+  表單欄位樣式
+*/
 .input-group-text {
     background: var(--color-primary);
     color: var(--color-bg);
     border: 1px solid var(--color-primary);
 }
-
 .form-select,
 .form-control {
     background-color: var(--color-border);
     color: var(--color-primary);
     border: 1px solid var(--color-primary);
 }
-
-
 .form-control:focus,
 .form-select:focus {
     background-color: var(--color-surface);
@@ -328,6 +336,49 @@ a.sorts {
     outline: 0;
     border: 0;
     box-shadow: 0 0 0 .15rem rgba(63, 114, 175, 0.8);
+}
+
+/*
+  文章封面照片容器與懸停放大效果
+*/
+.cover-image-container {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+.cover-image-container img {
+    transition: transform 0.3s ease;
+}
+.cover-image-container:hover img {
+    transform: scale(1.1);
+}
+
+/*
+  日期範圍選擇區塊樣式
+*/
+.date-range-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.date-range-container input[type="date"] {
+    padding: 4px 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/*
+  modern-table 表格列 hover 放大效果
+*/
+.modern-table tbody tr {
+    transition: transform 0.2s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s;
+}
+.modern-table tbody tr:hover {
+    transform: scale(1.0125);
+    box-shadow: 0 4px 16px rgba(90, 126, 197, 0.10);
+    z-index: 2;
+    position: relative;
 }
 
 

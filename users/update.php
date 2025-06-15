@@ -56,6 +56,7 @@ try {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="./btn.css">
     <style>
         :root {
             --color-bg: #ffffff;
@@ -218,8 +219,8 @@ try {
             <div class="border-bottom border-white text-center mb-4"></div>
 
             <div class="text-center">
-                <button type="submit" class="btn btn-primary btn-send">更新</button>
-                <a class="btn btn-secondary" href="./index.php">取消</a>
+                <button type="submit" class="btn btn-b btn-send me-4"><i class="fa-solid fa-floppy-disk me-2"></i>儲存</button>
+                <a class="btn btn-d" href="./index.php"><i class="fa-regular fa-circle-xmark me-2"></i></i>取消</a>
             </div>
         </form>
     </div>
