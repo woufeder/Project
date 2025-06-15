@@ -80,14 +80,21 @@ $pageTitle = "修改{$cate_ary[$cateNum]}";
       <?php include '../template_header.php'; ?>
       <main>
 
-        <div class="d-flex align-items-center mb-4 px-2">
-          <a class="btn btn-back " href="../products/index.php">
-            <i class="fa-solid fa-backward"> 回到商品列表</i>
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <a class="btn btn-back " href="../products/deleted.php">
+            <i class="fa-solid fa-backward"> 回到已刪除列表</i>
           </a>
-          <a class="btn btn-sm btn-return ms-auto px-3" data-id="<?= $row["id"] ?>">
+
+          <div class="d-flex flex-row gap-5 ">
+            <a class="btn btn-prev btn-back w-100 px-3">上一個商品</a>
+            <a class="btn btn-next btn-back w-100  px-3">下一個商品</a>
+          </div>
+
+          <a class="btn btn-sm btn-return" data-id="<?= $row["id"] ?>">
             <i class="fa-solid fa-rotate-left"> 重新上架商品</i>
           </a>
         </div>
+
 
         <div class="list-area  p-5">
 
@@ -301,6 +308,13 @@ $pageTitle = "修改{$cate_ary[$cateNum]}";
     btnReturn.forEach((btn) => {
       btn.addEventListener("click", doConfirm);
     });
+
+
+    const btnPrev = document.querySelectorAll(".btn-prev");
+    const btnNext = document.querySelectorAll(".btn-next");
+
+    btnPrev.forEach(btn => btn.addEventListener("click", () => window.location.href = `./update.php?id=${parseInt(new URLSearchParams(window.location.search).get("id")) - 1}`));
+    btnNext.forEach(btn => btn.addEventListener("click", () => window.location.href = `./update.php?id=${parseInt(new URLSearchParams(window.location.search).get("id")) + 1}`));
 
     function doConfirm(e) {
       const btn = e.currentTarget; // ✅ 改這裡

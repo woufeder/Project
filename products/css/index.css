@@ -148,6 +148,8 @@ color: var(--color-primary);
   }
 }
 
+
+
 .btn-update,
 .btn-send {
   background-color: var(--color-accent);

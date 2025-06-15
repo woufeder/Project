@@ -21,7 +21,7 @@ $currentPath = $_SERVER['REQUEST_URI'];
         </div>
         <div class="btn-group-vertical w-100">
             <a class="btn-subnav btn-sm w-100 <?= (strpos($currentPath, '/users/index.php') !== false) ? 'active' : '' ?>" href="../users/index.php">會員列表</a>
-            <a class="btn-subnav btn-sm w-100 <?= strpos($currentPath, '/users/deleteIndex.php' !== false) ?>" href="../users/deleteIndex.php">停權會員列表</a>
+            <a class="btn-subnav btn-sm w-100 <?= (strpos($currentPath, '/users/deleteIndex.php') !== false) ? 'active' : '' ?>" href="../users/deleteIndex.php">停權會員列表</a>
         </div>
 
         <!-- 商品管理 -->

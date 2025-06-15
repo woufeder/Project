@@ -33,7 +33,7 @@ color: var(--color-primary);
 }
 
 .btn-back {
-  padding: 0 !important;
+  padding: 0 3px 0;
   width: 10%;
   height: 30px;
   color: var(--color-border);
