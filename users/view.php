@@ -1,6 +1,7 @@
 <?php
 require_once "./connect.php";
 require_once "./utilities.php";
+include "../vars.php";
 
 if (!isset($_GET["id"])) {
     alertGoTo("請從正常管道進入", "./index.php");
@@ -41,7 +42,7 @@ try {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>會員資料編輯</title>
+    <title>會員資料</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -50,70 +51,9 @@ try {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="./btn.css">
-    <style>
-        :root {
-            --color-bg: #ffffff;
-            --color-surface: #F9F7F7;
-            --color-border: #DBE2EF;
-
-            --color-primary: #3F72AF;
-            --color-primary-light: #5B8BD6;
-
-            --color-accent: #E1B822;
-
-            --color-text: #2c2c2c;
-            --color-text-white: #64748b;
-            --color-text-inverse: #1e293b;
-
-            --box-shadow: rgba(63, 114, 175, 0.2);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            font-family: "Noto Sans TC", sans-serif;
-            background: linear-gradient(to top right, rgb(141, 155, 179) 0%, var(--color-primary-light) 100%);
-            background-repeat: no-repeat;
-            overflow-x: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            background-color: var(--color-border);
-
-        }
-
-        .avatar-wrapper {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: rgb(186, 186, 187);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            margin: auto;
-        }
-
-        .avatar-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/view.css">
 </head>
 
 <body>

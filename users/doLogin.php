@@ -1,12 +1,8 @@
 <?php
-session_start();
 require_once "./connect.php";
 require_once "./utilities.php";
+include "../vars.php";
 
-if (!isset($_POST["account"])) {
-    alertGoTo("請從正常管道進入", "./login.php");
-    exit;
-}
 
 $account = $_POST["account"];
 $password1 = $_POST["password1"];

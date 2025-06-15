@@ -1,7 +1,8 @@
 <?php
-//為甚麼會有密碼加密阿QQ
+// 後端是否要驗證 手機 生日
 require_once "./connect.php";
 require_once "./utilities.php";
+include "../vars.php";
 
 if (!isset($_POST["account"])) {
     alertGoTo("請從正常管道進入", "./index.php");

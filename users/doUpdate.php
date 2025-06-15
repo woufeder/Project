@@ -1,7 +1,7 @@
 <?php
-// 待解決：照片無法顯示
 require_once "./connect.php";
 require_once "./utilities.php";
+include "../vars.php";
 
 if (!isset($_POST["id"])) {
     alertGoTo("請從正常管道進入", "./index.php");

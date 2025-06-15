@@ -1,5 +1,9 @@
-<!-- 待新增項目：限定資料格式（生日）
- 確認是否要使用 foreach 從資料庫拉出性別及縣市選項 -->
+ <?php
+require_once "./connect.php";
+require_once "./utilities.php";
+include "../vars.php";
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -15,70 +19,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="./btn.css">
-    <style>
-        :root {
-            --color-bg: #ffffff;
-            --color-surface: #F9F7F7;
-            --color-border: #DBE2EF;
-
-            --color-primary: #3F72AF;
-            --color-primary-light: #5B8BD6;
-
-            --color-accent: #E1B822;
-
-            --color-text: #2c2c2c;
-            --color-text-secondary: #64748b;
-            --color-text-inverse: #1e293b;
-
-            --box-shadow: rgba(63, 114, 175, 0.2);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            font-family: "Noto Sans TC", sans-serif;
-            background: linear-gradient(to top right, rgb(141, 155, 179) 0%, var(--color-primary-light) 100%);
-            background-repeat: no-repeat;
-            overflow-x: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            background-color: var(--color-border);
-
-        }
-
-        .avatar-wrapper {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: rgb(186, 186, 187);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            margin: auto;
-        }
-
-        .avatar-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/add.css">
 </head>
 
 <body>
@@ -106,7 +49,7 @@
                 <div class="col-6 mb-3">
                     <label for="input-password" class="form-label">密碼</label>
                     <input type="password" class="form-control" id="input-password" name="password"
-                        placeholder="請輸入密碼 (長度介於5字元至20字元之間)" required>
+                        placeholder="請輸入密碼 (長度介於5字元至20字元之間)" minlength="5" maxlength="20"required>
                 </div>
             </div>
 
@@ -116,9 +59,9 @@
                     <input type="text" class="form-control" id="input-name" name="name" placeholder="請輸入姓名" required>
                 </div>
                 <div class="col-6 mb-3">
-                    <label for="input-phone" class="form-label">電話</label>
+                    <label for="input-phone" class="form-label">手機號碼</label>
                     <input type="text" class="form-control" id="input-phone" name="phone"
-                        placeholder="請輸入電話 (0123456789)" required>
+                        placeholder="請輸入手機號碼 (0912345678)" pattern="^\d{10}$" title="手機號碼格式錯誤" maxlength="10" required>
                 </div>
             </div>
 
@@ -131,14 +74,13 @@
                     <label for="input-birthday" class="form-label">生日</label>
                     <div class="row">
                         <div class="col-4">
-                            <input type="text" class="form-control" id="input-birthday" name="year" placeholder="西元年份"
-                                required>
+                            <input type="number" class="form-control" id="input-birthday" name="year" placeholder="西元年份" min="1900" max="2025" required>
                         </div>
                         <div class="col-4">
-                            <input type="text" class="form-control" name="month" placeholder="月份 (ex: 01)" required>
+                            <input type="number" class="form-control" name="month" placeholder="月份" min="1" max="12" required>
                         </div>
                         <div class="col-4">
-                            <input type="text" class="form-control" name="date" placeholder="日期" required>
+                            <input type="number" class="form-control" name="date" placeholder="日期" min="1" max="31" required>
                         </div>
                     </div>
                 </div>
