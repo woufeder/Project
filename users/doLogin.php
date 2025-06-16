@@ -1,8 +1,7 @@
 <?php
+session_start();
 require_once "./connect.php";
 require_once "./utilities.php";
-include "../vars.php";
-
 
 $account = $_POST["account"];
 $password1 = $_POST["password1"];

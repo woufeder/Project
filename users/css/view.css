@@ -3,15 +3,7 @@ body {
   height: 100%;
 }
 
-body {
-  font-family: "Noto Sans TC", sans-serif;
-  background: linear-gradient(
-    to top right,
-    rgb(141, 155, 179) 0%,
-    var(--color-primary-light) 100%
-  );
-  background-repeat: no-repeat;
-  overflow-x: hidden;
+main {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -268,7 +268,7 @@ $pageTitle = "停權{$cate_ary[$cateNum]}列表";
                         <?php endforeach; ?>
                     </div>
 
-                    <ul class="pagination mt-4 d-flex justify-content-center">
+                    <ul class="pagination mt-5 d-flex justify-content-center">
                         <?php
                         // 首頁
                         // $_GET 超全域變數，抓網址上所有的查詢參數，內容是一個關聯式陣列

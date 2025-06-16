@@ -1,8 +1,8 @@
 <?php
 // 後端是否要驗證 手機 生日
+
 require_once "./connect.php";
 require_once "./utilities.php";
-include "../vars.php";
 
 if (!isset($_POST["account"])) {
     alertGoTo("請從正常管道進入", "./index.php");
@@ -129,5 +129,15 @@ try {
     echo "錯誤: {{$e->getMessage()}}";
     exit;
 }
+
+// 註冊後自動登入
+// session_start();
+// $userId = $pdo->lastInsertId();
+// $_SESSION["user"] = [
+//     "id" => $row["id"],
+//     "name" => $row["name"],
+//     "account" => $row["account"],
+//     "img" => $row["img"]
+// ];
 
 alertGoTo("新增會員成功", "./index.php");
