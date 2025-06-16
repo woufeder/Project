@@ -1,35 +1,45 @@
 /* 編輯器相關樣式 */
 .editor-toolbar {
-    background: #f8f9fa;
+    background: linear-gradient(90deg, #f8fafc 0%, #e9ecef 100%);
     border: 1px solid #dee2e6;
     border-bottom: none;
-    border-radius: 4px 4px 0 0;
-    padding: 8px;
+    border-radius: 12px 12px 0 0;
+    padding: 10px 12px 8px 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 0;
 }
 
 .editor-toolbar button {
-    background: white;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    padding: 4px 8px;
-    margin-right: 4px;
+    background: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 6px 10px;
+    margin-right: 6px;
     cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    font-size: 1.1em;
 }
 
 .editor-toolbar button:hover {
-    background: #e9ecef;
+    background: #e2e6ea;
+    transform: scale(1.08);
+    border-color: #86b7fe;
 }
 
 .editor-content {
     border: 1px solid #dee2e6;
-    border-radius: 0 0 4px 4px;
-    min-height: 300px;
-    padding: 12px;
-    background: white;
+    border-radius: 0 0 12px 12px;
+    min-height: 320px;
+    padding: 18px;
+    background: #f9fafb;
+    font-family: 'Noto Sans TC', '微軟正黑體', Arial, sans-serif;
+    font-size: 1.1em;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .editor-content:focus {
     outline: none;
     border-color: #86b7fe;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.12);
 } 

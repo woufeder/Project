@@ -1,4 +1,6 @@
-body { background: #f6f7fb; }
+body {
+    background: linear-gradient(135deg, #f6f7fb 60%, #eaf1ff 100%);
+}
 .modern-title {
     background: linear-gradient(90deg, #4f8cff 0%, #6ed0f6 100%);
     color: #fff;
@@ -22,14 +24,16 @@ body { background: #f6f7fb; }
 }
 .modern-card {
     background: #fff;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    border-radius: 18px;
+    padding: 2.2rem 2rem 2rem 2rem;
+    box-shadow: 0 6px 32px rgba(90, 126, 197, 0.10), 0 1.5px 6px rgba(90, 126, 197, 0.04);
+    border: 1.5px solid #e3eaf7;
+    transition: box-shadow 0.3s, border 0.3s;
     margin-bottom: 2.5rem;
 }
 .modern-card:hover {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 32px rgba(90, 126, 197, 0.18), 0 2px 8px rgba(90, 126, 197, 0.08);
+    border: 1.5px solid #b3c7e6;
 }
 .modern-table {
     border-radius: 8px;
@@ -77,35 +81,47 @@ body { background: #f6f7fb; }
     border-radius: 0.5rem !important;
 }
 .article-content {
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 1.18rem;
+    line-height: 2.1;
     color: #2c3e50;
-    padding: 1rem 0;
+    padding: 1.2rem 0 0.5rem 0;
+    letter-spacing: 0.1px;
 }
 .article-content p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.7rem;
+    text-align: justify;
 }
 h2 {
-    color: #2c3e50;
-    font-weight: 600;
-    font-size: 2rem;
-    letter-spacing: -0.5px;
+    color: #30508c;
+    font-weight: 700;
+    font-size: 2.3rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 8px rgba(90, 126, 197, 0.08);
 }
 .text-muted {
-    color: #6c757d !important;
-    font-size: 0.95rem;
+    color: #7a8ca8 !important;
+    font-size: 1.05rem;
+    letter-spacing: 0.2px;
+    background: #f3f6fb;
+    border-radius: 6px;
+    padding: 0.4rem 1rem;
+    display: inline-block;
 }
 .btn-secondary {
-    background-color: #5A7EC5;
+    background: linear-gradient(90deg, #5A7EC5 60%, #4f8cff 100%);
     border: none;
-    padding: 0.6rem 1.2rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    color: #fff;
+    padding: 0.7rem 1.5rem;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(90, 126, 197, 0.10);
+    transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
 }
 .btn-secondary:hover {
-    background-color: #4a6cb3;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(90, 126, 197, 0.2);
+    background: linear-gradient(90deg, #4a6cb3 60%, #30508c 100%);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 18px rgba(90, 126, 197, 0.18);
 }
 .btn-secondary i {
     margin-right: 0.5rem;
@@ -113,17 +129,27 @@ h2 {
 .cover-image-container {
     position: relative;
     overflow: hidden;
-    border-radius: 6px;
+    border-radius: 14px;
     margin-bottom: 2rem;
-    transition: all 0.2s ease;
+    box-shadow: 0 4px 24px rgba(90, 126, 197, 0.13);
+    transition: box-shadow 0.3s;
+}
+.cover-image-container::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0; top: 0;
+    background: linear-gradient(180deg, rgba(90,126,197,0.08) 0%, rgba(255,255,255,0.00) 60%, rgba(90,126,197,0.10) 100%);
+    pointer-events: none;
 }
 .cover-image-container img {
     width: 100%;
     height: auto;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s cubic-bezier(.4,2,.6,1), filter 0.3s;
+    filter: saturate(1.08) contrast(1.04);
 }
 .cover-image-container:hover img {
-    transform: scale(1.02);
+    transform: scale(1.035) rotate(-0.5deg);
+    filter: saturate(1.15) brightness(1.04);
 }
 .date-range-container {
     display: flex;
@@ -180,9 +206,15 @@ h2 {
 .table > :not(caption) > * > * {
     padding: 1rem;
 }
-@media (max-width: 768px) {
-    .modern-title { flex-direction: column; align-items: flex-start; padding: 1.2rem; }
-    .modern-card { padding: 1.5rem !important; }
+@media (max-width: 992px) {
+    .modern-card { padding: 1.2rem 1rem 1.2rem 1rem; }
     h2 { font-size: 1.5rem; }
-    .article-content { font-size: 1rem; }
+    .article-content { font-size: 1.05rem; }
+    .cover-image-container { border-radius: 8px; }
+}
+@media (max-width: 768px) {
+    .modern-card { padding: 1rem !important; }
+    h2 { font-size: 1.2rem; }
+    .article-content { font-size: 0.98rem; }
+    .cover-image-container { border-radius: 6px; }
 } 
