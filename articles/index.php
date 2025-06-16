@@ -130,7 +130,7 @@ $pageTitle = "文章列表";
                             <input type="text" name="keyword" class="form-control form-control-sm" placeholder="搜尋標題或內容" value="<?= htmlspecialchars($search_keyword) ?>" style="width:180px;">
                             <button type="submit" class="btn btn-sm btn-info"><i class="fa fa-search"></i> 搜尋</button>
                         </form>
-                        <a class="btn btn-sm btn-add ms-auto" href="add.php"><i class="fa-solid fa-plus"></i> 新增文章</a>
+                        <a class="btn btn-sm btn-info ms-auto" href="add.php"><i class="fa-solid fa-plus"></i> 新增文章</a>
                         <a class="btn btn-sm btn-info ms-2" href="categories.php"><i class="fa-solid fa-list"></i> 文章分類</a>
                         <a class="btn btn-sm btn-secondary ms-2" href="delete_list.php"><i class="fa-solid fa-trash"></i> 我已刪除/下架的文章</a>
                     </div>
@@ -154,10 +154,10 @@ $pageTitle = "文章列表";
                                     <td><?= $offset + $idx + 1 ?></td>
                                     <td><a href="article.php?id=<?= $article['id'] ?>" class="text-decoration-none fw-semibold text-dark"><i class="fa-regular fa-file-alt me-1" style="color: var(--color-primary);"></i><?= htmlspecialchars($article['title']) ?></a></td>
                                     <td><?= htmlspecialchars($article['category_name']) ?></td>
-                                    <td>
+                                    <td style="padding:0;width:200px;">
                                       <?php if ($article['cover_image']): ?>
-                                        <div class="cover-image-container">
-                                          <img src="./uploads/<?= htmlspecialchars($article['cover_image']) ?>" alt="封面" style="max-width:120px;max-height:80px;border-radius:4px;object-fit:cover;box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+                                        <div class="cover-image-container" style="width:200px;height:100px;position:relative;overflow:hidden;">
+                                          <img src="./uploads/<?= htmlspecialchars($article['cover_image']) ?>" alt="封面" style="width:100%;height:100%;object-fit:cover;display:block;">
                                         </div>
                                       <?php else: ?>
                                         <span class="text-muted">無</span>

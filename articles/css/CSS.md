@@ -1,103 +1,119 @@
-# Articles 專案 CSS 檔案說明
+# Articles 專案 CSS 架構說明
 
-本專案包含以下 CSS 檔案，每個檔案負責不同的樣式功能：
+## 一、CSS 檔案結構
 
-## 1. articles.css
-主要的共用樣式檔案，包含：
-- 基本頁面樣式（背景、字體等）
-- 卡片元件樣式
-- 表單元素樣式
+### 1. 主要樣式檔案
+- **articles.css**
+  - 基礎共用樣式
+  - 卡片元件樣式
+  - 表單元素樣式
+  - 按鈕樣式
+  - 編輯器相關樣式
+  - 響應式設計調整
+
+- **article_modern.css**
+  - 文章內容排版
+  - 文章標題樣式
+  - 文章封面圖片樣式
+  - 文章資訊樣式（分類、時間等）
+
+- **index.css**
+  - 文章列表表格樣式
+  - 搜尋區塊樣式
+  - 分頁按鈕樣式
+  - 操作按鈕樣式
+
+- **editor.css**
+  - 編輯器工具列樣式
+  - 編輯區域樣式
+  - 編輯器按鈕樣式
+  - 編輯器功能相關樣式
+
+- **categories_custom.css**
+  - 分類列表樣式
+  - 分類表單樣式
+  - 分類操作按鈕樣式
+
+## 二、樣式變數定義
+
+### 1. 顏色系統
+```css
+:root {
+  --color-bg: #ffffff;          /* 背景色 */
+  --color-surface: #F9F7F7;     /* 表面色 */
+  --color-border: #DBE2EF;      /* 邊框色 */
+  --color-primary: #3F72AF;     /* 主色 */
+  --color-primary-light: #5B8BD6; /* 主色-亮 */
+  --color-accent: #E1B822;      /* 強調色 */
+  --color-text: #2c2c2c;        /* 主要文字色 */
+  --color-text-secondary: #64748b; /* 次要文字色 */
+  --color-text-inverse: #1e293b; /* 反色文字 */
+  --box-shadow: rgba(63, 114, 175, 0.2); /* 陰影色 */
+}
+```
+
+## 三、元件樣式說明
+
+### 1. 卡片元件
+- 圓角設計（border-radius: 18px）
+- 陰影效果（box-shadow）
+- 無邊框設計
+- 響應式寬度
+
+### 2. 表單元素
+- 標籤樣式（font-weight: 600）
+- 輸入框樣式
+  - 圓角設計
+  - 聚焦效果
+  - 錯誤狀態樣式
+- 下拉選單樣式
 - 按鈕樣式
-- 編輯器相關樣式
-- 響應式設計調整
 
-影響範圍：
-- 所有文章相關頁面
-- 編輯器介面
-- 表單元素
-- 按鈕樣式
+### 3. 按鈕樣式
+- 主要按鈕（btn-primary）
+- 次要按鈕（btn-secondary）
+- 危險按鈕（btn-danger）
+- 取消按鈕（btn-cancel）
+- 懸停效果
+- 過渡動畫
 
-套用於以下 PHP 檔案：
-- articles/index.php
-- articles/article.php
-- articles/edit.php
-- articles/add.php
-- articles/categories.php
-
-## 2. article_modern.css
-文章顯示相關的現代化樣式，包含：
-- 文章內容排版
-- 文章標題樣式
-- 文章封面圖片樣式
-- 文章資訊（分類、時間等）樣式
-
-影響範圍：
-- 文章列表頁面
-- 單篇文章顯示頁面
-- 文章編輯頁面
-
-套用於以下 PHP 檔案：
-- articles/index.php
-- articles/article.php
-- articles/edit.php
-- articles/add.php
-
-## 3. index.css
-文章列表頁面的專用樣式，包含：
-- 文章列表表格樣式
-- 搜尋區塊樣式
-- 分頁按鈕樣式
-- 操作按鈕樣式
-
-影響範圍：
-- 文章列表頁面（index.php）
-- 搜尋和篩選功能
-- 分頁導航
-
-套用於以下 PHP 檔案：
-- articles/index.php
-- articles/delete_list.php
-
-## 4. editor.css
-文章編輯器的專用樣式，包含：
-- 編輯器工具列樣式
+### 4. 編輯器樣式
+- 工具列設計
 - 編輯區域樣式
-- 編輯器按鈕樣式
-- 編輯器功能相關樣式
+- 字體大小設定
+- 格式化工具樣式
 
-影響範圍：
-- 文章編輯頁面
-- 文章新增頁面
-- 編輯器工具列
+## 四、響應式設計
 
-套用於以下 PHP 檔案：
-- articles/edit.php
-- articles/add.php
+### 1. 斷點設定
+- 手機：< 768px
+- 平板：768px - 1024px
+- 桌面：> 1024px
 
-## 5. categories_custom.css
-文章分類相關的專用樣式，包含：
-- 分類列表樣式
-- 分類表單樣式
-- 分類操作按鈕樣式
+### 2. 響應式調整
+- 表格轉換為卡片式顯示
+- 按鈕大小調整
+- 字體大小調整
+- 間距調整
 
-影響範圍：
-- 分類管理頁面
-- 分類新增/編輯表單
-- 分類列表顯示
+## 五、檔案相依性
 
-套用於以下 PHP 檔案：
-- articles/categories.php
+### 1. 基礎樣式
+- 所有頁面都會載入 articles.css
+- 所有頁面都會載入 main.css
 
-## 注意事項
+### 2. 功能樣式
+- 文章相關頁面：article_modern.css
+- 列表頁面：index.css
+- 編輯相關頁面：editor.css
+- 分類頁面：categories_custom.css
+
+## 六、注意事項
 1. 所有 CSS 檔案都遵循模組化設計原則
 2. 修改樣式時請注意不要影響到其他頁面
 3. 建議在修改前先確認樣式的影響範圍
 4. 如需新增樣式，請優先考慮是否可加入現有檔案中
 5. 如果新增的樣式較為獨立，可考慮創建新的 CSS 檔案
-
-## 檔案相依性
-- 所有頁面都會載入 articles.css（基礎樣式）
-- 文章相關頁面會額外載入 article_modern.css
-- 列表頁面會額外載入 index.css
-- 編輯相關頁面會額外載入 editor.css
-- 分類頁面會額外載入 categories_custom.css 
+6. 使用 CSS 變數來管理顏色和主題
+7. 保持命名一致性
+8. 注意樣式的優先級順序 
