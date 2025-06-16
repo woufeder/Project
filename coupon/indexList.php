@@ -1,8 +1,8 @@
 <?php
 include "../template_btn.php";
+require_once "./Utilities.php";
 include "../vars.php";
 require_once "./connect.php";
-require_once "./Utilities.php";
 
 $cateNum = 2;
 $pageTitle = "{$cate_ary[$cateNum]}列表";
@@ -144,9 +144,15 @@ function sortIcon($field, $orderBy, $orderDir)
             <?php include(__DIR__ . "/../template_header.php"); ?>
             <main>
                 <div class="container my-4">
-                    <div class="my-2 d-flex">
-                        <span class="me-auto">目前共 <?= $totalCount ?> 筆資料</span>
-                        <a class="btn btn-add btn-sm" href="./add.php">新增優惠券</a>
+                    <div class="my-2 d-flex align-items-center">
+                        <span class="text-white bg-primary px-3 py-1 rounded-pill shadow-sm">
+                            <i class="fa-solid fa-list me-1"></i>
+                            共 <?= $totalCount ?> 筆資料
+                        </span>
+                        <div class="ms-auto">
+                            <?php $query = htmlspecialchars($_SERVER['QUERY_STRING'] ?? ""); ?>
+                            <a class="btn btn-add btn-sm" href="./add.php?from=indexList&<?= $query ?>">新增優惠券</a>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-end mb-3">
                         <a href="index.php" class="btn btn-outline-secondary btn-sm">切換卡片模式</a>
@@ -295,6 +301,7 @@ function sortIcon($field, $orderBy, $orderDir)
                             </div>
                             <div class="actions">
                                 <a href="./update.php?id=<?= $row["id"] ?>" class="btn btn-sm btn-cha">修改</a>
+                                <input type="hidden" name="from" value="indexList">
                                 <a href="./doDelete.php?id=<?= $row["id"] ?>" class="btn btn-sm btn-del">刪除</a>
                             </div>
                         </div>

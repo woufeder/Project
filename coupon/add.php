@@ -1,10 +1,22 @@
 <?php
 include "../template_btn.php";
+require_once "./Utilities.php";
 include "../vars.php";
 require_once "./connect.php";
-require_once "./Utilities.php";
+
 $cateNum = 2;
 $pageTitle = "{$cate_ary[$cateNum]}列表";
+$referer = $_SERVER["HTTP_REFERER"] ?? "";
+$from = $_GET["from"] ?? "index";
+$redirect_query = $_SERVER["QUERY_STRING"] ?? "";
+
+
+
+if (strpos($referer, "indexList.php") !== false) {
+    $from = "indexList";
+} elseif (strpos($referer, "expiredList.php") !== false) {
+    $from = "expiredList";
+}
 
 ?>
 <!doctype html>
@@ -94,6 +106,12 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                     <h1 class="text-center">新增優惠券</h1>
                     <div class="card">
                         <form action="./doAdd.php" method="post" enctype="multipart/form-data">
+                            <?php
+                            $from = $_GET["from"] ?? "index";
+                            $redirect_query = $_SERVER["QUERY_STRING"] ?? "";
+                            ?>
+                            <input type="hidden" name="from" value="<?= htmlspecialchars($from) ?>">
+                            <input type="hidden" name="redirect_query" value="<?= htmlspecialchars($redirect_query) ?>">
                             <div class="mb-3">
                                 <label for="code" class="form-label">優惠碼</label>
                                 <input required name="code" type="text" class="form-control" id="code">
@@ -147,6 +165,7 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                             </div>
                             <div class="text-end mt-3">
                                 <button type="submit" class="btn btn-info">送出</button>
+
                                 <a href="<?= $_SERVER["HTTP_REFERER"] ?? './index.php' ?>"
                                     class="btn btn-secondary">取消</a>
                             </div>

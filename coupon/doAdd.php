@@ -2,75 +2,57 @@
 require_once "./connect.php";
 require_once "./Utilities.php";
 
-// 取得資料
+// 取得表單資料
 $code = $_POST["code"];
 $desc = $_POST["desc"];
-$type = $_POST["type"];
+$type = $_POST["type"] ?? null;
 $value = $_POST["value"];
 $min = $_POST["min"];
 $start_at = $_POST["start_at"] . " 00:00:00";
 $expires_at = $_POST["expires_at"] . " 23:59:59";
 $is_active = isset($_POST["is_active"]) ? 1 : 0;
 
-// 1. 資料驗證
-if (empty($code)) {
-  alertAndBack("請輸入優惠碼");
-  exit;
-}
-if (empty($desc)) {
-  alertAndBack("請輸入敘述");
-  exit;
-}
-if (empty($type)) {
-  alertAndBack("請輸入類型");
-  exit;
-}
-if (empty($value)) {
-  alertAndBack("請輸入折扣");
-  exit;
-}
-if (empty($min)) {
-  alertAndBack("請輸入最低消費");
-  exit;
-}
-if (empty($_POST["start_at"])) {
-  alertAndBack("請輸入開始時間");
-  exit;
-}
-if (empty($_POST["expires_at"])) {
-  alertAndBack("請輸入結束時間");
+$from = $_POST["from"] ?? "";
+$query = $_POST["redirect_query"] ?? "";
+$query = preg_replace('/[\r\n]/', '', $query); // 避免換行造成 header 問題
+$query = $query ? "&" . $query : "";
+
+// 驗證必填欄位
+if (empty($code) || empty($desc) || $type === null || empty($value) || empty($min) || empty($_POST["start_at"]) || empty($_POST["expires_at"])) {
+  echo "請確認所有欄位皆已填寫";
   exit;
 }
 
-// 2. 檢查優惠碼是否重複
-$sqlCheck = "SELECT COUNT(*) FROM coupon WHERE code = ?";
-try {
-  $stmtCheck = $pdo->prepare($sqlCheck);
-  $stmtCheck->execute([$code]);
-  $count = $stmtCheck->fetchColumn();
-  if ($count > 0) {
-    alertAndBack("此優惠碼已經使用過");
-    exit;
+// 過期時間檢查（避免已過期還啟用）
+if ($is_active == 1 && strtotime($expires_at) < time()) {
+  if ($from === "expiredList") {
+    header("Location: ./expiredList.php?error=expired");
+  } else {
+    header("Location: ./add.php?error=expired");
   }
-} catch (PDOException $e) {
-  echo "查詢錯誤: " . $e->getMessage();
   exit;
 }
 
-// 3. 寫入資料
-$sql = "INSERT INTO coupon 
-(code, `desc`, type, value, min, start_at, expires_at, is_active)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
+// 寫入資料庫
+$sql = "INSERT INTO coupon
+  (code, `desc`, type, value, min, start_at, expires_at, is_active)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 try {
   $stmt = $pdo->prepare($sql);
   $stmt->execute([$code, $desc, $type, $value, $min, $start_at, $expires_at, $is_active]);
+
+  // 決定導回頁面
+  $redirect = match ($from) {
+    "index" => "index.php",
+    "indexList" => "indexList.php",
+    "expiredList" => "expiredList.php",
+    default => "index.php"
+  };
+  header("Location: ./{$redirect}?" . $query);
+  exit;
+
 } catch (PDOException $e) {
-  echo "新增失敗 " . $e->getMessage();
+  echo "錯誤：" . $e->getMessage();
   exit;
 }
-
-// 4. 導回
-$referrer = $_POST["ref"] ?? "./index.php";
-alertGoTo("新增優惠券成功", $referrer);
