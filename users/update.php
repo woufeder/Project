@@ -65,7 +65,7 @@ try {
         <div class="main-container">
             <?php include '../template_header.php'; ?>
             <main>
-                <div class="container w-50 p-4 rounded-4 shadow-sm">
+                <div class="container w-50 p-4 rounded-4 shadow">
                     <form action="./doUpdate.php" method="post" enctype="multipart/form-data">
                         <h1 class="border-bottom border-white pb-4 text-center">會員資料編輯</h1>
 

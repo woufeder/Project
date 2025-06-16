@@ -96,6 +96,7 @@ if ($endPage - $startPage + 1 < $maxPagesToShow) {
 
 $cateNum = 0;
 $pageTitle = "{$cate_ary[$cateNum]}列表";
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -233,7 +234,7 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                             <div class="account">帳號</div>
                             <div class="email">信箱</div>
                             <div class="time">加入時間</div>
-                            <div class="edit">操作</div>
+                            <div class="edit d-flex justify-content-center">操作</div>
                         </div>
 
                         <!-- 資料列 -->
@@ -250,7 +251,7 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                                     ?>
                                 </div>
                                 <div class="img">
-                                    <div class="img-thumbnail">
+                                    <div class="img-thumbnail shadow">
                                         <?php if (!empty($row["img"]) && file_exists("./imgs/" . $row["img"])): ?>
                                             <img src="./imgs/<?= $row["img"] ?>" alt="<?= $row["img"] ?>">
                                         <?php else: ?>
@@ -262,7 +263,7 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                                 <div class="account"><?= $row["account"] ?></div>
                                 <div class="email"><?= $row["email"] ?></div>
                                 <div class="time"><?= $row["create_at"] ?></div>
-                                <div class="edit">
+                                <div class="edit d-flex justify-content-between">
                                     <a class="btn btn-sm btn-b" href="./view.php?id=<?= $row["id"] ?>"><i
                                             class="fas fa-eye"></i></a>
                                     <a class="btn btn-sm btn-y" href="./update.php?id=<?= $row["id"] ?>"><i
@@ -270,7 +271,7 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                                     <button class="btn btn-sm btn-del btn-d" data-id="<?= $row["id"] ?>"><i
                                             class="fas fa-trash"></i></button>
                                 </div>
-                            </div>  
+                            </div>
                         <?php endforeach; ?>
                     </div>
 

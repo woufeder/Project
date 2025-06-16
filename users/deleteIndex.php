@@ -1,5 +1,4 @@
 <?php
-// 增加 vars 分頁名稱
 require_once "./connect.php";
 require_once "./utilities.php";
 include "../template_btn.php";

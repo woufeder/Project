@@ -47,6 +47,11 @@ if ($phone == "") {
     exit;
 }
 ;
+if (strlen($phone) != 10) {
+    alertAndBack("手機號碼格式為10碼");
+    exit;
+};
+
 if ($email == "") {
     alertAndBack("請輸入信箱");
     exit;
@@ -129,15 +134,5 @@ try {
     echo "錯誤: {{$e->getMessage()}}";
     exit;
 }
-
-// 註冊後自動登入
-// session_start();
-// $userId = $pdo->lastInsertId();
-// $_SESSION["user"] = [
-//     "id" => $row["id"],
-//     "name" => $row["name"],
-//     "account" => $row["account"],
-//     "img" => $row["img"]
-// ];
 
 alertGoTo("新增會員成功", "./index.php");
