@@ -348,7 +348,7 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
         });
 
         function doConfirm(e) {
-            const btn = e.target;
+            const btn = e.currentTarget;
             if (window.confirm("是否確定要停權該會員?")) {
                 window.location.href = `./doDelete.php?id=${btn.dataset.id}`;
             }

@@ -94,7 +94,7 @@ if ($endPage - $startPage + 1 < $maxPagesToShow) {
 }
 
 $cateNum = 0;
-$pageTitle = "{$cate_ary[$cateNum]}列表";
+$pageTitle = "停權{$cate_ary[$cateNum]}列表";
 ?>
 <!doctype html>
 <html lang="en">
@@ -342,7 +342,7 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
         });
 
         function doConfirm(e) {
-            const btn = e.target;
+            const btn = e.currentTarget;
             if (window.confirm("是否確定要解除停權該會員?")) {
                 window.location.href = `./undoDelete.php?id=${btn.dataset.id}`;
             }
