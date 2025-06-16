@@ -19,15 +19,14 @@
 </head>
 
 <body>
-    <div class="container w-25 p-4 rounded-4">
+    <div class="container w-25 p-4 rounded-4 shadow">
         <form action="./doLogin.php" method="post">
             <h1 class="border-bottom border-white pb-4 text-center">登入</h1>
             <label for="input-account" class="form-label mt-2   ">帳號</label>
             <input type="text" name="account" id="input-account" class="form-control" placeholder="請輸入帳號" required>
             <label for="input-password1" class="form-label mt-2">密碼</label>
-            <input type="password" name="password1" id="input-password1" class="form-control" placeholder="請輸入密碼"
-                required>
-            <input type="password" name="password2" class="form-control mt-3" placeholder="再次輸入密碼">
+            <input type="password" name="password1" id="input-password1" class="form-control" placeholder="請輸入密碼" required>
+            <input type="password" name="password2" class="form-control mt-3" placeholder="請再次輸入密碼">
             <div class="border-bottom border-white text-center my-4"></div>
             <div class="text-center">
                 <button class="btn btn-b btn-send me-3"><i class="fa-solid fa-user me-2"></i>登入</button>

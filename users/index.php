@@ -270,11 +270,11 @@ $pageTitle = "{$cate_ary[$cateNum]}列表";
                                     <button class="btn btn-sm btn-del btn-d" data-id="<?= $row["id"] ?>"><i
                                             class="fas fa-trash"></i></button>
                                 </div>
-                            </div>
+                            </div>  
                         <?php endforeach; ?>
                     </div>
 
-                    <ul class="pagination mt-4 d-flex justify-content-center">
+                    <ul class="pagination mt-5 d-flex justify-content-center">
                         <?php
                         // 首頁
                         // $_GET 超全域變數，抓網址上所有的查詢參數，內容是一個關聯式陣列

@@ -1,4 +1,4 @@
- <?php
+<?php
 require_once "./connect.php";
 require_once "./utilities.php";
 ?>
@@ -24,7 +24,7 @@ require_once "./utilities.php";
 </head>
 
 <body>
-    <div class="container w-50 p-4 rounded-4">
+    <div class="container p-4 rounded-4">
         <form action="./doAdd.php" method="post" enctype="multipart/form-data">
             <h1 class="border-bottom border-white pb-4 text-center">新增會員</h1>
 
@@ -34,7 +34,7 @@ require_once "./utilities.php";
                 </div>
             </div>
             <div class="row">
-                <div class="input-group w-50 mx-auto mb-3 col-12">
+                <div class="input-group mx-auto mb-3 col-12 avatar-input">
                     <input type="file" id="avatar-input" name="file" class="form-control" accept=".png,.jpg,.jpeg">
                 </div>
             </div>
@@ -47,11 +47,12 @@ require_once "./utilities.php";
                 </div>
                 <div class="col-6 mb-3">
                     <label for="input-password" class="form-label">密碼</label>
-                    <input type="password" class="form-control" id="input-password" name="password"
-                        placeholder="請輸入密碼 (長度介於5字元至20字元之間)" minlength="5" maxlength="20"required>
+                    <input type="password" class="form-control" id="input-password" name="password" placeholder="請輸入密碼"
+                        minlength="5" maxlength="20" title="密碼長度: 5字元-20字元" data-bs-toggle="tooltip"
+                        data-bs-trigger="focus" required>
                 </div>
             </div>
-
+            
             <div class="row g-5">
                 <div class="col-6 mb-3">
                     <label for="input-name" class="form-label">姓名</label>
@@ -60,7 +61,8 @@ require_once "./utilities.php";
                 <div class="col-6 mb-3">
                     <label for="input-phone" class="form-label">手機號碼</label>
                     <input type="text" class="form-control" id="input-phone" name="phone"
-                        placeholder="請輸入手機號碼 (0912345678)" pattern="^\d{10}$" title="手機號碼格式錯誤" maxlength="10" required>
+                        placeholder="請輸入手機號碼" pattern="^\d{10}$" maxlength="10" title="範例格式: 0912345678" data-bs-toggle="tooltip"
+                        data-bs-trigger="focus" required>
                 </div>
             </div>
 
@@ -71,15 +73,18 @@ require_once "./utilities.php";
                 </div>
                 <div class="col-6 mb-3">
                     <label for="input-birthday" class="form-label">生日</label>
-                    <div class="row">
+                    <div class="row g-2">
                         <div class="col-4">
-                            <input type="number" class="form-control" id="input-birthday" name="year" placeholder="西元年份" min="1900" max="2025" required>
+                            <input type="number" class="form-control" id="input-birthday" name="year" placeholder="西元年份"
+                                min="1900" max="2025" required>
                         </div>
                         <div class="col-4">
-                            <input type="number" class="form-control" name="month" placeholder="月份" min="1" max="12" required>
+                            <input type="number" class="form-control" name="month" placeholder="月份" min="1" max="12"
+                                required>
                         </div>
                         <div class="col-4">
-                            <input type="number" class="form-control" name="date" placeholder="日期" min="1" max="31" required>
+                            <input type="number" class="form-control" name="date" placeholder="日期" min="1" max="31"
+                                required>
                         </div>
                     </div>
                 </div>
@@ -158,6 +163,16 @@ require_once "./utilities.php";
                 };
                 reader.readAsDataURL(file);
             }
+        });
+
+        // 初始化 Bootstrap Tooltip 功能
+        // 整個 HTML 文件載入完成（DOM 建立完畢）時
+        document.addEventListener('DOMContentLoaded', function () {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            tooltipTriggerList.forEach(el => {
+                // 使用 Bootstrap 的 JavaScript API 建立 Tooltip 實體
+                new bootstrap.Tooltip(el);
+            });
         });
     </script>
 </body>
