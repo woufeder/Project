@@ -1,8 +1,9 @@
 <?php
 include "../template_btn.php";
+require_once "./Utilities.php";
 include "../vars.php";
 require_once "./connect.php";
-require_once "./Utilities.php";
+
 
 // 自動將過期或被刪除的優惠券設為未啟用
 $pdo->exec("UPDATE coupon SET is_valid = 0, is_active = 0 WHERE expires_at < NOW() AND is_valid = 1");
@@ -72,9 +73,23 @@ if (isset($_GET["toggle_id"])) {
 
 if (isset($_GET["restore_id"])) {
     $restoreId = $_GET["restore_id"];
-    $stmt = $pdo->prepare("UPDATE coupon SET is_valid = 1, updated_at = NOW() WHERE id = ?");
+
+    // 取得該筆資料
+    $sql = "SELECT expires_at FROM coupon WHERE id = ?";
+    $stmt = $pdo->prepare($sql);
     $stmt->execute([$restoreId]);
-    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+    $row = $stmt->fetch();
+
+    // 如果資料存在且已過期
+    if ($row && strtotime($row["expires_at"]) < time()) {
+        header("Location: ./expiredList.php?error=expiredActive");
+        exit;
+    }
+
+    // 否則允許重新上架
+    $stmt = $pdo->prepare("UPDATE coupon SET is_valid = 1, is_active = 1, updated_at = NOW() WHERE id = ?");
+    $stmt->execute([$restoreId]);
+    header("Location: ./expiredList.php");
     exit;
 }
 
@@ -152,8 +167,11 @@ function sortIcon($field, $orderBy, $orderDir)
             <?php include(__DIR__ . "/../template_header.php"); ?>
             <main>
                 <div class="container my-4">
-                    <div class="my-2 d-flex">
-                        <span class="me-auto">目前共 <?= $totalCount ?> 筆資料</span>
+                    <div class="my-2 d-flex align-items-center">
+                        <span class="text-white bg-primary px-3 py-1 rounded-pill shadow-sm">
+                            <i class="fa-solid fa-list me-1"></i>
+                            共 <?= $totalCount ?> 筆資料
+                        </span>
                     </div>
 
                     <!-- 搜尋表單 -->
@@ -208,6 +226,11 @@ function sortIcon($field, $orderBy, $orderDir)
 
                     </form>
 
+                    <?php if (isset($_GET["error"]) && $_GET["error"] === "expired"): ?>
+                        <div class="alert alert-warning mt-3" role="alert">
+                            ⚠️ 已逾期的優惠券無法重新啟用，請先修改有效期限！
+                        </div>
+                    <?php endif; ?>
                     <div class="msg msg-header mb-1">
                         <div class="id">編號</div>
                         <div class="desc">敘述</div>
@@ -258,12 +281,7 @@ function sortIcon($field, $orderBy, $orderDir)
                                 更新時間 <?= sortIcon('updated_at', $orderBy, $orderDir) ?>
                             </a>
                         </div>
-                        <div class="is_active">
-                            <a href="?<?= http_build_query(array_merge($_GET, ['orderBy' => 'is_active', 'orderDir' => ($orderBy === 'is_active' && $orderDir === 'ASC') ? 'DESC' : 'ASC'])) ?>"
-                                class="text-white text-decoration-none">
-                                狀態 <?= sortIcon('is_active', $orderBy, $orderDir) ?>
-                            </a>
-                        </div>
+
                         <div class="actions">操作</div>
 
                     </div>
@@ -292,15 +310,11 @@ function sortIcon($field, $orderBy, $orderDir)
                                 <?= date("Y-m-d", strtotime($row["updated_at"])) ?><br>
                                 <?= date("H:i:s", strtotime($row["updated_at"])) ?>
                             </div>
-                            <div class="is_active">
-                                <a href="?toggle_id=<?= $row["id"] ?>"
-                                    class="btn btn-sm <?= $row["is_active"] ? 'btn-toggle-on' : 'btn-toggle-off' ?>">
-                                    <?= $row["is_active"] ? '啟用中' : '未啟用' ?>
-                                </a>
-                            </div>
                             <div class="actions">
+
                                 <a href="./update.php?id=<?= $row["id"] ?>" class="btn btn-sm btn-cha">修改</a>
                                 <a href="?restore_id=<?= $row["id"] ?>" class="btn btn-sm btn-del">重新上架</a>
+
                             </div>
                         </div>
                     <?php endforeach; ?>

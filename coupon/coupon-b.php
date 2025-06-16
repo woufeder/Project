@@ -20,7 +20,6 @@ function formatDiscount($type, $value)
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Poppins', sans-serif;
     }
 
     /* body {
@@ -244,6 +243,7 @@ function formatDiscount($type, $value)
               </a>
             </div>
             <a href="./update.php?id=<?= $row["id"] ?>" class="btn btn-sm btn-cha" title="修改">
+              <input type="hidden" name="from" value="index"> 
               <i class="fas fa-pen"></i>
             </a>
             <a href="./doDelete.php?id=<?= $row["id"] ?>" class="btn btn-sm btn-del" title="刪除"

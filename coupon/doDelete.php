@@ -11,7 +11,7 @@ if (!isset($_GET["id"]) || empty($_GET["id"])) {
 $id = $_GET["id"];
 
 // 軟刪除：將 is_valid 設為 0
-$sql = "UPDATE `coupon` SET `is_valid` = 0 WHERE `id` = ?";
+$sql = "UPDATE `coupon` SET `is_valid` = 0, `is_active` = 0 WHERE `id` = ?";
 
 try {
   $stmt = $pdo->prepare($sql);

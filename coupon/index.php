@@ -1,9 +1,10 @@
 <?php
 include "../template_btn.php";
+require_once "./Utilities.php";
 include "../vars.php";
 require_once "./connect.php";
 require_once "./coupon-b.php";
-require_once "./Utilities.php";
+
 
 $cateNum = 2;
 $pageTitle = "{$cate_ary[$cateNum]}列表";
@@ -166,7 +167,8 @@ $totalPage = ceil($totalCount / $perPage);
                             共 <?= $totalCount ?> 筆資料
                         </span>
                         <div class="ms-auto">
-                            <a class="btn btn-add btn-sm" href="./add.php">新增優惠券</a>
+                            <?php $query = htmlspecialchars($_SERVER['QUERY_STRING'] ?? ""); ?>
+                            <a class="btn btn-add btn-sm" href="./add.php?from=index&<?= $query ?>">新增優惠券</a>
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mb-3">
