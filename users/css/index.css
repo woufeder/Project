@@ -14,8 +14,12 @@ body {
   width: 70px;
 }
 
+.fw-bold {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
 .img {
-  width: 100px;
+  width: 120px;
 }
 
 .img-thumbnail {
@@ -52,7 +56,7 @@ body {
 }
 
 .edit {
-  width: 120px;
+  width: 100px;
 }
 
 .table-row:hover {

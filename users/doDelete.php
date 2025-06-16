@@ -21,4 +21,4 @@ try {
     exit;
 }
 
-alertGoTo("停權會員成功", "./deleteIndex.php");
+alertGoTo("停權會員成功", "./index.php");
